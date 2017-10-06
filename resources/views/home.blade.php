@@ -30,73 +30,32 @@
   <!-- Wife tab content -->
   <div class="tabs-panel is-active" id="wife">
     <div class="grid-x grid-margin-x">
-      <!-- Sbling item -->
+      <!-- Wife item -->
       <div class="cell medium-3">
         <div class="card">
           <a href="{{ route('marriages.create') }}" class="button"><i class="fi-plus"></i></a>
         </div>
       </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
+      <!-- End Wife item -->
+      @foreach($user->couple as $wife)
+        <!-- Wife item -->
+        <div class="cell medium-3">
+          <div class="card">
+            <div class="card-divider">
+              {{ $wife->name }}
+            </div>
+            <img src="{{ $wife->getAvatar() }}" alt="{{ $wife->name }}">
+            <div class="card-section">
+              <p><i class="fi-telephone"></i> {{ $wife->getPhone() }}</p>
+              <p><i class="fi-mail"></i> {{ $wife->getEmail() }}</p>
+              <p>
+                <i class="fi-foot"></i> {{ $wife->getDob() }} | <i class="fi-skull"></i> {{ $wife->getDod() }}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
+        <!-- End Wife item -->
+      @endforeach
     </div>
   </div>
   <!-- End Wife tab content -->

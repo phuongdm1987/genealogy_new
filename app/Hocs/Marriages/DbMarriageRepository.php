@@ -19,6 +19,7 @@ class DbMarriageRepository extends BaseRepository implements MarriageRepository
 
     public function store($datas)
     {
+        dd($datas);
         $user_data = array_get($datas, 'user', []);
         $marriage_data = array_get($datas, 'marriage', []);
 

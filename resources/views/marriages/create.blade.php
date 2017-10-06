@@ -36,8 +36,15 @@
         <fieldset class="fieldset">
           <legend>{{ $user->isMan() ? 'Vợ' : 'Chồng' }}</legend>
 
-          <label for="avatar" class="button">Tải ảnh đại diện</label>
-          <input type="file" name="avatar" id="avatar" class="show-for-sr">
+          <label for="">
+            <img class="thumbnail" id="image" src="http://via.placeholder.com/150x150" alt="Avatar">
+          </label>
+
+          <label for="file" class="button">Tải ảnh đại diện</label>
+          <input type="file" name="user[avatar]" id="file" class="show-for-sr" value="{{ old('user.avatar') }}">
+          @if ($errors->has('user.avatar'))
+            <p class="help-text">{{ $errors->first('user.avatar') }}</p>
+          @endif
 
           <label>Họ và tên
             <input id="name" name="user[name]" type="text" value="{{ old('user.name') }}" required>
@@ -54,14 +61,14 @@
           @endif
 
           <label>Ngày sinh
-            <input id="dob" class="date-picker" name="user[dob]" type="text" value="{{ old('user.dob') }}" required>
+            <input id="dob" class="date-picker" name="user[dob]" type="text" value="{{ old('user.dob') }}">
           </label>
           @if ($errors->has('user.dob'))
             <p class="help-text">{{ $errors->first('user.dob') }}</p>
           @endif
 
           <label>Ngày mất
-            <input id="dod" class="date-picker" name="user[dod]" type="text" value="{{ old('user.dod') }}" required>
+            <input id="dod" class="date-picker" name="user[dod]" type="text" value="{{ old('user.dod') }}">
           </label>
           @if ($errors->has('user.dod'))
             <p class="help-text">{{ $errors->first('user.dod') }}</p>

@@ -120,7 +120,20 @@ class User extends Authenticatable
     public function getAvatar()
     {
         return $this->avatar
-            ? asset("storage/images/users/{$this->avatar}")
+            ? asset("storage/uploads/avatars/{$this->avatar}")
             : 'http://via.placeholder.com/150x150';
+    }
+
+    public function marriages()
+    {
+        $foreign_key = $this->isMan() ? 'husband_id' : 'wife_id';
+        return $this->hasMany('Genealogy\Hocs\Marriages\Marriage', $foreign_key, 'id');
+    }
+
+    public function couple()
+    {
+        $first_key = $this->isMan() ? 'husband_id' : 'wife_id';
+        $last_key = !$this->isMan() ? 'husband_id' : 'wife_id';
+        return $this->belongsToMany('Genealogy\Hocs\Users\User', 'marriages', $first_key, $last_key);
     }
 }
