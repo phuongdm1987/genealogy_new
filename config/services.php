@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => Genealogy\User::class,
+        'model' => Genealogy\Hocs\Users\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

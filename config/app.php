@@ -181,6 +181,7 @@ return [
          * Project Service Providers...
          */
         Genealogy\Providers\UserServiceProvider::class,
+        Genealogy\Providers\MarriageServiceProvider::class,
 
     ],
 

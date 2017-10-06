@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="cell medium-8 medium-offset-2">
-  <h4>Add new marriage</h4>
+  <h4>Thêm mới hôn nhân</h4>
   <form method="POST" action="{{ route('marriages.store') }}" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="grid-x grid-padding-x">
       <div class="cell medium-4">
         <fieldset class="fieldset">
-          <legend>Marriage</legend>
-          <label>Begin
+          <legend>Hôn nhân</legend>
+          <label>Bắt đầu
             <input id="started_at" class="date-picker" name="marriage[started_at]" type="text" value="{{ old('marriage.started_at') }}" required>
           </label>
           @if ($errors->has('marriage.started_at'))
@@ -18,11 +18,11 @@
 
           <label for="is_ended">
             <input id="is_ended" class="show-elm" name="marriage[is_ended]" type="checkbox" value="1" {{ old('marriage.is_ended') ? 'checked' : '' }}>
-            Game over
+            Đã ly hôn
           </label>
 
           <div class="{{ old('marriage.is_ended') ? 'show' : 'hide' }} show-by">
-            <label>End
+            <label>Kết thúc
               <input id="ended_at" class="date-picker" name="marriage[ended_at]" type="text" value="{{ old('marriage.ended_at') }}">
             </label>
             @if ($errors->has('marriage.ended_at'))
@@ -34,12 +34,12 @@
       </div>
       <div class="cell medium-8">
         <fieldset class="fieldset">
-          <legend>{{ $user->isMan() ? 'Wife' : 'Husband' }}</legend>
+          <legend>{{ $user->isMan() ? 'Vợ' : 'Chồng' }}</legend>
 
-          <label for="avatar" class="button">Upload File</label>
+          <label for="avatar" class="button">Tải ảnh đại diện</label>
           <input type="file" name="avatar" id="avatar" class="show-for-sr">
 
-          <label>Name
+          <label>Họ và tên
             <input id="name" name="user[name]" type="text" value="{{ old('user.name') }}" required>
           </label>
           @if ($errors->has('user.name'))
@@ -52,11 +52,25 @@
           @if ($errors->has('user.email'))
             <p class="help-text">{{ $errors->first('user.email') }}</p>
           @endif
+
+          <label>Ngày sinh
+            <input id="dob" class="date-picker" name="user[dob]" type="text" value="{{ old('user.dob') }}" required>
+          </label>
+          @if ($errors->has('user.dob'))
+            <p class="help-text">{{ $errors->first('user.dob') }}</p>
+          @endif
+
+          <label>Ngày mất
+            <input id="dod" class="date-picker" name="user[dod]" type="text" value="{{ old('user.dod') }}" required>
+          </label>
+          @if ($errors->has('user.dod'))
+            <p class="help-text">{{ $errors->first('user.dod') }}</p>
+          @endif
         </fieldset>
       </div>
     </div>
 
-    <button type="submit" class="button primary expanded">Add new</button>
+    <button type="submit" class="button primary expanded">Thêm mới</button>
   </form>
 </div>
 @endsection

@@ -1,6 +1,6 @@
 <?php
 
-namespace Genealogy;
+namespace Genealogy\Hocs\Users;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

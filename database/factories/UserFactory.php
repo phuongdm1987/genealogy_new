@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Genealogy\User::class, function (Faker $faker) {
+$factory->define(Genealogy\Hocs\Users\User::class, function (Faker $faker) {
     static $password;
 
     return [

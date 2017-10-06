@@ -62,7 +62,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \Genealogy\User
+     * @return \Genealogy\Hocs\Users\User
      */
     protected function create(array $data)
     {
@@ -93,7 +93,6 @@ class RegisterController extends Controller
     */
     public function verify($token)
     {
-
         $user = $this->user->getByConfirmCode($token);
         $user->confirmed = 1;
 

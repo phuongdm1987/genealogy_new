@@ -30,6 +30,8 @@ class StoreMarriage extends FormRequest
             'user.avatar'         => 'nullable|image|mimes:jpeg,jpg,png',
             'user.name'           => 'required',
             'user.email'          => 'required|email|unique:users,email',
+            'user.dob'            => 'nullable|date_format:Y-m-d',
+            'user.email'          => 'nullable|date_format:Y-m-d',
         ];
     }
 }

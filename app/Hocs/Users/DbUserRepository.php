@@ -3,7 +3,6 @@
 namespace Genealogy\Hocs\Users;
 
 use Genealogy\Hocs\BaseRepository;
-use Genealogy\User;
 
 class DbUserRepository extends BaseRepository implements UserRepository
 {
@@ -23,7 +22,7 @@ class DbUserRepository extends BaseRepository implements UserRepository
 
     public function store($data)
     {
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = bcrypt(array_get($data, 'password', null));
         $data['confirmation_code'] = str_random(8) . "-" . base64_encode($data['email']);
 
         $model = $this->model->create($data);
