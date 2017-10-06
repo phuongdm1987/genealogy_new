@@ -5,5 +5,11 @@
 // Variables
 @import "settings";
 
-// Bootstrap
+// Foundation
 @import "node_modules/foundation-sites/assets/foundation-prototype";
+@import "node_modules/foundation-datepicker/scss/foundation-datepicker";
+
+//motion ui
+@import "node_modules/motion-ui/motion-ui";
+
+@import "main";

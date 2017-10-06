@@ -9,8 +9,14 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
+
     require('foundation-sites/dist/js/foundation');
+    require('foundation-datepicker/js/foundation-datepicker');
     $(document).foundation();
+
+    require('motion-ui/motion-ui');
+
+    require('./main');
 } catch (e) {}
 
 /**

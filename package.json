@@ -19,6 +19,8 @@
         "vue": "^2.1.10"
     },
     "dependencies": {
-        "foundation-sites": "^6.4.3"
+        "foundation-datepicker": "^1.5.6",
+        "foundation-sites": "^6.4.3",
+        "motion-ui": "^1.2.3"
     }
 }

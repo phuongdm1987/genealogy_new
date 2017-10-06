@@ -16,4 +16,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/verify-email/{confirmation_code}', 'Auth\RegisterController@verify')->name('verify');
 
+Route::resource('marriages', 'MarriageController');
+Route::resource('users', 'UserController');
+
 Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

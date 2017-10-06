@@ -20,3 +20,4 @@ public/css/app.css.map
 *.fuse_hidden*
 yarn.lock
 dump.rdb
+*.mwb
