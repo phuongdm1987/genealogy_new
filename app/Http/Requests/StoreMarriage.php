@@ -31,6 +31,7 @@ class StoreMarriage extends FormRequest
             'user.name'           => 'required',
             'user.email'          => 'required|email|unique:users,email',
             'user.dob'            => 'nullable|date_format:Y-m-d',
+            'user.is_dead'        => 'nullable|boolean',
             'user.dod'            => 'nullable|date_format:Y-m-d',
         ];
     }

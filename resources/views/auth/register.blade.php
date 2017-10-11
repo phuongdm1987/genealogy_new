@@ -6,13 +6,16 @@
     <legend>Đăng ký</legend>
     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
       {{ csrf_field() }}
-
       <label for="">
-        <img class="thumbnail" id="image" src="http://via.placeholder.com/150x150" alt="Avatar">
+        <img class="thumbnail" id="image" style="max-width: 100%;" src="http://via.placeholder.com/150x150" alt="Avatar">
       </label>
 
-      <label for="file" class="button">Tải ảnh đại diện</label>
-      <input type="file" name="avatar" id="file" class="show-for-sr" value="{{ old('avatar') }}">
+      <label for="inputImage" class="button">Tải ảnh đại diện</label>
+      <input type="file" name="avatar" id="inputImage" class="show-for-sr" value="{{ old('avatar') }}" accept=".jpg,.jpeg,.png">
+      <input type="hidden" id="image_x" name="avatar_x" readonly="">
+      <input type="hidden" id="image_y" name="avatar_y" readonly="">
+      <input type="hidden" id="image_width" name="avatar_width" readonly="">
+      <input type="hidden" id="image_height" name="avatar_height" readonly="">
       @if ($errors->has('avatar'))
         <p class="help-text">{{ $errors->first('avatar') }}</p>
       @endif

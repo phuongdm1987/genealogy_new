@@ -23,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'avatar', 'name', 'phone', 'email', 'sex', 'password', 'confirmation_code', 'dob', 'dod'
+        'avatar', 'name', 'phone', 'email', 'sex', 'password', 'confirmation_code', 'dob', 'dod', 'parent_id'
     ];
 
     protected static $arr_sex = [
@@ -38,6 +38,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * ep kieu du lieu gioi tinh khi luu
+     * @param void
+     */
+    public function setSexAttribute($value)
+    {
+        $this->attributes['sex'] = (boolean) $value;
+    }
 
     /**
      * Tra ve text hien thi gioi tinh
@@ -124,12 +133,56 @@ class User extends Authenticatable
             : 'http://via.placeholder.com/150x150';
     }
 
+    /**
+     * Tra ve danh sach Bo me thuoc user hien tai
+     * @return Collection Children
+     */
+    public function getParents()
+    {
+        if (!$this->parent) {
+            return null;
+        }
+
+        $parents = collect([$this->parent]);
+
+        foreach ($this->parent->couple as $wife) {
+            $parents->push($wife);
+        }
+
+        return $parents;
+    }
+
+    /**
+     * Tra ve danh sach con cai thuoc user hien tai va thuoc vo / chong cua user hien tai
+     * @return Collection Children
+     */
+    public function getChildren()
+    {
+        $children = collect($this->children);
+
+        foreach ($this->couple as $wife) {
+            foreach ($wife->children as $child) {
+                $children->push($child);
+            }
+        }
+
+        return $children;
+    }
+
+    /**
+     * Lay ra danh sach cac cuoc hon nhan
+     * @return Collection marriages
+     */
     public function marriages()
     {
         $foreign_key = $this->isMan() ? 'husband_id' : 'wife_id';
         return $this->hasMany('Genealogy\Hocs\Marriages\Marriage', $foreign_key, 'id');
     }
 
+    /**
+     * Lay ra danh sach vo (chong)
+     * @return Collection user
+     */
     public function couple()
     {
         $first_key = $this->isMan() ? 'husband_id' : 'wife_id';

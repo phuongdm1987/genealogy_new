@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="{{ asset('fonts/vendor/foundation-icons/foundation-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cropper.min.css') }}">
     @yield('css')
   </head>
   <body>

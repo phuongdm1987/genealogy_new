@@ -18,31 +18,119 @@
 <!-- End Feature post -->
 
 <!-- Relation post -->
-<ul class="tabs" data-deep-link="true" data-update-history="true" data-deep-link-smudge="true" data-deep-link-smudge="500" data-tabs id="collapsing-tabs">
-  <li class="tabs-title is-active">
-    <a href="#wife" aria-selected="true">{{ $user->isMan() ? 'Wifes' : 'Husbands' }}</a>
-  </li>
-  <li class="tabs-title"><a href="#panel2c">Sbling</a></li>
-  <li class="tabs-title"><a href="#panel3c">Children</a></li>
+<ul class="tabs" data-deep-link="true" data-update-history="true" data-deep-link-smudge="true" data-deep-link-smudge="500" data-tabs id="deeplinked-tabs">
+  <li class="tabs-title is-active"><a href="#parents">Bố / Mẹ</a></li>
+  <li class="tabs-title"><a href="#sblings">Anh / Chị / Em</a></li>
+  <li class="tabs-title"><a href="#couple" aria-selected="true">Vợ / Chồng</a></li>
+  <li class="tabs-title"><a href="#children">Con cái</a></li>
 </ul>
 
-<div class="tabs-content" data-tabs-content="collapsing-tabs">
+<div class="tabs-content" data-tabs-content="deeplinked-tabs">
+  <!-- Parent tab content -->
+  <div class="tabs-panel is-active" id="parents">
+    <div class="grid-x grid-margin-x">
+      <!-- Parent item -->
+      <div class="cell medium-3">
+        <div class="card">
+          <div class="card-divider">
+            Bố / Mẹ
+          </div>
+          <div class="card-section">
+            <p><a href="{{ route('parents.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
+            <p><a href="{{ route('parents.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
+          </div>
+        </div>
+      </div>
+      <!-- End Parent item -->
+
+      <!-- Parent item -->
+      @if($user->getParents())
+        @foreach($user->getParents() as $parent)
+          <div class="cell medium-3">
+            <div class="card">
+              <div class="card-divider">
+                <a href="#">{{ $parent->name }}</a>
+              </div>
+              <img src="{{ $parent->getAvatar() }}" alt="{{ $parent->name }}">
+              <div class="card-section">
+                <p><i class="fi-telephone"></i> {{ $parent->getPhone() }}</p>
+                <p><i class="fi-mail"></i> {{ $parent->getEmail() }}</p>
+                <p>
+                  <i class="fi-foot"></i> {{ $parent->getDob() }} | <i class="fi-skull"></i> {{ $parent->getDod() }}
+                </p>
+              </div>
+            </div>
+          </div>
+        @endforeach
+      @endif
+      <!-- End Parent item -->
+    </div>
+  </div>
+  <!-- End Parent tab content -->
+
+  <!-- Sbling tab content -->
+  <div class="tabs-panel" id="sblings">
+    <div class="grid-x grid-margin-x">
+      <!-- Sbling item -->
+      <div class="cell medium-3">
+        <div class="card">
+          <div class="card-divider">
+            Anh / Chị / Em
+          </div>
+          <div class="card-section">
+            <p><a href="{{ route('sblings.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
+            <p><a href="{{ route('sblings.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
+          </div>
+        </div>
+      </div>
+      <!-- End Sbling item -->
+
+      <!-- Sbling item -->
+      @foreach($user->getSiblings() as $sbling)
+        <div class="cell medium-3">
+          <div class="card">
+            <div class="card-divider">
+              <a href="#">{{ $sbling->name }}</a>
+            </div>
+            <img src="{{ $sbling->getAvatar() }}" alt="{{ $sbling->name }}">
+            <div class="card-section">
+              <p><i class="fi-telephone"></i> {{ $sbling->getPhone() }}</p>
+              <p><i class="fi-mail"></i> {{ $sbling->getEmail() }}</p>
+              <p>
+                <i class="fi-foot"></i> {{ $sbling->getDob() }} | <i class="fi-skull"></i> {{ $sbling->getDod() }}
+              </p>
+            </div>
+          </div>
+        </div>
+      @endforeach
+      <!-- End Sbling item -->
+    </div>
+  </div>
+  <!-- End Children tab content -->
+
   <!-- Wife tab content -->
-  <div class="tabs-panel is-active" id="wife">
+  <div class="tabs-panel" id="couple">
     <div class="grid-x grid-margin-x">
       <!-- Wife item -->
       <div class="cell medium-3">
         <div class="card">
-          <a href="{{ route('marriages.create') }}" class="button"><i class="fi-plus"></i></a>
+          <div class="card-divider">
+            Vợ / Chồng
+          </div>
+          <div class="card-section">
+            <p><a href="{{ route('marriages.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
+            <p><a href="{{ route('marriages.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
+          </div>
         </div>
       </div>
       <!-- End Wife item -->
+
+      <!-- Wife item -->
       @foreach($user->couple as $wife)
-        <!-- Wife item -->
         <div class="cell medium-3">
           <div class="card">
             <div class="card-divider">
-              {{ $wife->name }}
+              <a href="#">{{ $wife->name }}</a>
             </div>
             <img src="{{ $wife->getAvatar() }}" alt="{{ $wife->name }}">
             <div class="card-section">
@@ -54,173 +142,53 @@
             </div>
           </div>
         </div>
-        <!-- End Wife item -->
       @endforeach
+      <!-- End Wife item -->
     </div>
   </div>
   <!-- End Wife tab content -->
 
   <!-- Children tab content -->
-  <div class="tabs-panel" id="panel2c">
+  <div class="tabs-panel" id="children">
     <div class="grid-x grid-margin-x">
-      <!-- Sbling item -->
+      <!-- Children item -->
       <div class="cell medium-3">
         <div class="card">
           <div class="card-divider">
-            This is a header
+            Con cái
           </div>
-          <img src="http://via.placeholder.com/150x150">
           <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
+            <p><a href="{{ route('children.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
+            <p><a href="{{ route('children.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
           </div>
         </div>
       </div>
-      <!-- End Sbling item -->
+      <!-- End Children item -->
 
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
+      <!-- Children item -->
+      @if($user->children)
+        @foreach($user->getChildren() as $child)
+          <div class="cell medium-3">
+            <div class="card">
+              <div class="card-divider">
+                <a href="#">{{ $child->name }}</a>
+              </div>
+              <img src="{{ $child->getAvatar() }}" alt="{{ $child->name }}">
+              <div class="card-section">
+                <p><i class="fi-telephone"></i> {{ $child->getPhone() }}</p>
+                <p><i class="fi-mail"></i> {{ $child->getEmail() }}</p>
+                <p>
+                  <i class="fi-foot"></i> {{ $child->getDob() }} | <i class="fi-skull"></i> {{ $child->getDod() }}
+                </p>
+              </div>
+            </div>
           </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
+        @endforeach
+      @endif
+      <!-- End Children item -->
     </div>
   </div>
   <!-- End Children tab content -->
-
-  <!-- Sbling tab content -->
-  <div class="tabs-panel" id="panel3c">
-    <div class="grid-x grid-margin-x">
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-
-      <!-- Sbling item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            This is a header
-          </div>
-          <img src="http://via.placeholder.com/150x150">
-          <div class="card-section">
-            <h4>This is a card.</h4>
-            <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          </div>
-        </div>
-      </div>
-      <!-- End Sbling item -->
-    </div>
-  </div>
-  <!-- End Sbling tab content -->
 
 
 </div>

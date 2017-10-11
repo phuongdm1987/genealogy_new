@@ -19,7 +19,6 @@ class DbMarriageRepository extends BaseRepository implements MarriageRepository
 
     public function store($datas)
     {
-        dd($datas);
         $user_data = array_get($datas, 'user', []);
         $marriage_data = array_get($datas, 'marriage', []);
 
@@ -29,8 +28,6 @@ class DbMarriageRepository extends BaseRepository implements MarriageRepository
         $user_current = auth()->user();
 
         $marriage_data['ended_at'] = $is_ended ? $ended_at : null;
-        $user_data['sex'] = $user_current->isMan() ? false : true;
-        $user_data['parent_id'] = $user_current->parent_id;
 
         $model = $this->model->create($marriage_data);
         $user  = $this->helper->storeUser($user_data);

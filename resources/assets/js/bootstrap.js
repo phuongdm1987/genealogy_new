@@ -15,6 +15,7 @@ try {
     $(document).foundation();
 
     require('motion-ui/motion-ui');
+    window.Cropper = require('cropperjs/dist/cropper');
 
     require('./main');
 } catch (e) {}

@@ -22,11 +22,19 @@ class Marriage extends Model
         'husband_id', 'wife_id', 'started_at', 'eneded_at'
     ];
 
+    /**
+     * Tra ve doi tuong nguoi chong
+     * @return [type] [description]
+     */
     public function husband()
     {
         return $this->belongsTo('Genealogy\Hocs\Users\User', 'husband_id');
     }
 
+    /**
+     * Tra ve doi tuong nguoi vo
+     * @return [type] [description]
+     */
     public function wife()
     {
         return $this->belongsTo('Genealogy\Hocs\Users\User', 'wife_id');
