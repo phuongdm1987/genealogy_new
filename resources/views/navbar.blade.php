@@ -4,7 +4,7 @@
   <div class="title-bar-title">Menu</div>
 </div>
 
-<div class="top-bar stacked-for-medium margin-bottom-3" id="responsive-menu">
+<div class="top-bar stacked-for-medium margin-bottom-1" id="responsive-menu">
   <div class="top-bar-left">
     <ul class="dropdown menu" data-dropdown-menu>
       <li class="menu-text">Genealogy</li>

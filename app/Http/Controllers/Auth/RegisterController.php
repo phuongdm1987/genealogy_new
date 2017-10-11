@@ -52,8 +52,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'avatar'   => 'nullable|image|mimes:jpeg,jpg,png',
+            'name'     => 'required|string|max:255',
+            'sex'      => 'nullable|boolean',
+            'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -62,7 +64,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \Genealogy\User
+     * @return \Genealogy\Hocs\Users\User
      */
     protected function create(array $data)
     {
@@ -78,7 +80,6 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
         event(new Registered($user = $this->create($request->all())));
         dispatch(new SendVerificationEmail($user));
 
@@ -93,7 +94,6 @@ class RegisterController extends Controller
     */
     public function verify($token)
     {
-
         $user = $this->user->getByConfirmCode($token);
         $user->confirmed = 1;
 

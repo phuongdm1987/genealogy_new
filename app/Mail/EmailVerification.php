@@ -29,8 +29,10 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->view('email.verification')->with([
-            'confirmation_code' => $this->user->confirmation_code
-        ]);
+        return $this->view('email.verification')
+            ->subject("Xác thực tài khoản " . env('APP_NAME'))
+            ->with([
+                'confirmation_code' => $this->user->confirmation_code
+            ]);
     }
 }

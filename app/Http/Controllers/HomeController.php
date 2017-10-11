@@ -25,7 +25,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Auth()->user();
-        return view('home', compact('user'));
+        $user = auth()->user();
+        $user->load('parent.couple', 'couple.children', 'children');
+
+        $users_tree = $this->user->getToTree();
+
+        return view('home')->with(['user' => $user, 'users_tree' => $users_tree]);
     }
 }
