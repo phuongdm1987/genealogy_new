@@ -4,11 +4,11 @@ namespace Genealogy\Http\Controllers;
 
 use DB;
 use Genealogy\Hocs\Users\UserRepository;
-use Genealogy\Http\Requests\StoreSbling;
+use Genealogy\Http\Requests\StoreSibling;
 use Genealogy\Jobs\SendInviteEmail;
 use Illuminate\Http\Request;
 
-class SblingController extends Controller
+class SiblingController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,10 +28,10 @@ class SblingController extends Controller
      */
     public function create(Request $request)
     {
-        return view('sblings.create')->with('user', auth()->user());
+        return view('siblings.create')->with('user', auth()->user());
     }
 
-    public function store(StoreSbling $request)
+    public function store(StoreSibling $request)
     {
         DB::beginTransaction();
 
@@ -40,7 +40,7 @@ class SblingController extends Controller
             $datas = $request->all();
             $datas['password'] = $password;
 
-            $user = $this->user->storeSbling($datas);
+            $user = $this->user->storeSibling($datas);
             DB::commit();
 
             dispatch(new SendInviteEmail($user, $password));

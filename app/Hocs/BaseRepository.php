@@ -19,7 +19,7 @@ abstract class BaseRepository
     public function getById($id, $withoutScope = null)
     {
         $model = $withoutScope == 'withoutScope' ? $this->model->withoutGlobalScope('user') : $this->model;
-        return $model->find($id);
+        return $model->findOrFail($id);
     }
 
     /**
@@ -30,7 +30,7 @@ abstract class BaseRepository
      */
     public function getByIdWithTrash($id)
     {
-        return $this->model->withTrashed()->find($id);
+        return $this->model->withTrashed()->findOrFail($id);
     }
 
     /**

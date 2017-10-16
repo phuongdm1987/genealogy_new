@@ -3,7 +3,7 @@
 @section('content')
 <div class="cell medium-4 medium-offset-4">
   <h4>Thêm mới Anh / Chị / Em</h4>
-  <form method="POST" action="{{ route('sblings.store') }}" enctype="multipart/form-data">
+  <form method="POST" action="{{ route('siblings.store') }}" enctype="multipart/form-data">
     {{ csrf_field() }}
     <fieldset class="fieldset">
       <legend>Anh / Chị / Em</legend>
