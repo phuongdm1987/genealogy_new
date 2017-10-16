@@ -31,6 +31,9 @@ class DbUserRepository extends BaseRepository implements UserRepository
 
         $model = $this->model->create($data);
 
+        $model->hashid = \Hashids::encode($model->id);
+        $model->save();
+
         $avatar = array_get($data, 'avatar', null);
         $width  = array_get($data, 'avatar_width', 0);
         $height = array_get($data, 'avatar_height', 0);
@@ -61,7 +64,7 @@ class DbUserRepository extends BaseRepository implements UserRepository
      * @param  array $data Mang du lieu
      * @return User        Anh / chi / em
      */
-    public function storeSbling($data)
+    public function storeSibling($data)
     {
         $user_current = auth()->user();
         $data['parent_id'] = $user_current->parent_id;
@@ -82,31 +85,42 @@ class DbUserRepository extends BaseRepository implements UserRepository
 
     /**
      * Tra ve danh sach user da cap
-     * @param string $value [description]
+     * @param  User     $current_user   Doi tuong user hien tai
+     * @return string                   Html menu danh sach user
      */
-    public function getToTree()
+    public function getToTree($current_user = null)
     {
+        if (!auth()->user()) {
+            return null;
+        }
+
         $nodes = $this->model->get()->toTree();
 
-        $this->getRecursive($nodes, $html);
+        $this->getRecursive($nodes, $html, $current_user);
 
         return $html;
     }
 
     /**
      * lay de quy ra tat ca user
-     * @param  collection  $users       Danh sach user
-     * @param  string      &$html       Bien luu html
-     * @param  boolean     $is_children Check xem co phai node con ko
-     * @return string                   Html
+     * @param  collection  $users           Danh sach user
+     * @param  string      &$html           Bien luu html
+     * @param  boolean     $is_children     Check xem co phai node con ko
+     * @param  User        $current_user    Doi tuong user hien tai
+     * @return string                       Html
      */
-    public function getRecursive($users, &$html)
+    public function getRecursive($users, &$html, $current_user = null)
     {
+        $current_user = is_null($current_user) ? auth()->user() : $current_user;
+
         foreach ($users as $user) {
-            $html .= '<li><a href="#">' . $user->name . '</a>';
+            $active = $current_user->id == $user->id ? " class='is-active'" : '';
+            $html .= "<li{$active}><a href='"
+                . route('users.show', ['user' => $user->hashid])
+                . "'><i class='fi-list'></i> <span>{$user->name}</span></a>";
 
             $html .= !$user->children->isEmpty() ? '<ul class="menu vertical nested">' : '';
-            $this->getRecursive($user->children, $html);
+            $this->getRecursive($user->children, $html, $current_user);
             $html .= !$user->children->isEmpty() ? '</ul>' : '';
 
             $html .= '</li>';

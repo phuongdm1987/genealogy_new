@@ -4,7 +4,7 @@ namespace Genealogy\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSbling extends FormRequest
+class StoreSibling extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

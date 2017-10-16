@@ -23,7 +23,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'avatar', 'name', 'phone', 'email', 'sex', 'password', 'confirmation_code', 'dob', 'dod', 'parent_id'
+        'avatar', 'name', 'phone', 'email', 'sex', 'password', 'confirmation_code',
+        'dob', 'dod', 'parent_id'
     ];
 
     protected static $arr_sex = [
@@ -167,6 +168,12 @@ class User extends Authenticatable
         }
 
         return $children;
+    }
+
+    public function getSiblingsWithoutCouple()
+    {
+        $couples = $this->couple->pluck('id', 'id');
+        return $this->getSiblings()->whereNotIn('id', $couples);
     }
 
     /**

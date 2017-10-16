@@ -18,13 +18,12 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
+    public function show(Request $request, $id)
     {
-        return view('users.create');
+        $id = array_first(\Hashids::decode($id));
+        $user = $this->user->getById($id);
+        $users_tree = $this->user->getToTree($user);
+
+        return view('home')->with(['user' => $user, 'users_tree' => $users_tree]);
     }
 }

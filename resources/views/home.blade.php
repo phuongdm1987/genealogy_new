@@ -12,7 +12,7 @@
     <h4>{{ $user->name }} <i class="{{ $user->getSexIcon() }}"></i></h4>
     <p><i class="fi-telephone"></i> {{ $user->getPhone() }}</p>
     <p><i class="fi-mail"></i> {{ $user->getEmail() }}</p>
-    <p><i class="fi-foot"></i> {{ $user->getDob() }} | <i class="fi-skull"></i> {{ $user->getDod() }}</p>
+    <p><i class="fi-foot"></i> {{ $user->getDob('d-m-Y') }} | <i class="fi-skull"></i> {{ $user->getDod() }}</p>
   </div>
 </div>
 <!-- End Feature post -->
@@ -20,7 +20,7 @@
 <!-- Relation post -->
 <ul class="tabs" data-deep-link="true" data-update-history="true" data-deep-link-smudge="true" data-deep-link-smudge="500" data-tabs id="deeplinked-tabs">
   <li class="tabs-title is-active"><a href="#parents">Bố / Mẹ</a></li>
-  <li class="tabs-title"><a href="#sblings">Anh / Chị / Em</a></li>
+  <li class="tabs-title"><a href="#siblings">Anh / Chị / Em</a></li>
   <li class="tabs-title"><a href="#couple" aria-selected="true">Vợ / Chồng</a></li>
   <li class="tabs-title"><a href="#children">Con cái</a></li>
 </ul>
@@ -49,9 +49,11 @@
           <div class="cell medium-3">
             <div class="card">
               <div class="card-divider">
-                <a href="#">{{ $parent->name }}</a>
+                <a href="{{ route('users.show', ['user' => $parent->hashid]) }}">{{ $parent->name }}</a>
               </div>
-              <img src="{{ $parent->getAvatar() }}" alt="{{ $parent->name }}">
+              <a href="{{ route('users.show', ['user' => $parent->hashid]) }}">
+                <img src="{{ $parent->getAvatar() }}" alt="{{ $parent->name }}">
+              </a>
               <div class="card-section">
                 <p><i class="fi-telephone"></i> {{ $parent->getPhone() }}</p>
                 <p><i class="fi-mail"></i> {{ $parent->getEmail() }}</p>
@@ -68,42 +70,44 @@
   </div>
   <!-- End Parent tab content -->
 
-  <!-- Sbling tab content -->
-  <div class="tabs-panel" id="sblings">
+  <!-- Sibling tab content -->
+  <div class="tabs-panel" id="siblings">
     <div class="grid-x grid-margin-x">
-      <!-- Sbling item -->
+      <!-- Sibling item -->
       <div class="cell medium-3">
         <div class="card">
           <div class="card-divider">
             Anh / Chị / Em
           </div>
           <div class="card-section">
-            <p><a href="{{ route('sblings.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
-            <p><a href="{{ route('sblings.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
+            <p><a href="{{ route('siblings.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
+            <p><a href="{{ route('siblings.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
           </div>
         </div>
       </div>
-      <!-- End Sbling item -->
+      <!-- End Sibling item -->
 
-      <!-- Sbling item -->
-      @foreach($user->getSiblings() as $sbling)
+      <!-- Sibling item -->
+      @foreach($user->getSiblingsWithoutCouple() as $sibling)
         <div class="cell medium-3">
           <div class="card">
             <div class="card-divider">
-              <a href="#">{{ $sbling->name }}</a>
+              <a href="{{ route('users.show', ['user' => $sibling->hashid]) }}">{{ $sibling->name }}</a>
             </div>
-            <img src="{{ $sbling->getAvatar() }}" alt="{{ $sbling->name }}">
+            <a href="{{ route('users.show', ['user' => $sibling->hashid]) }}">
+              <img src="{{ $sibling->getAvatar() }}" alt="{{ $sibling->name }}">
+            </a>
             <div class="card-section">
-              <p><i class="fi-telephone"></i> {{ $sbling->getPhone() }}</p>
-              <p><i class="fi-mail"></i> {{ $sbling->getEmail() }}</p>
+              <p><i class="fi-telephone"></i> {{ $sibling->getPhone() }}</p>
+              <p><i class="fi-mail"></i> {{ $sibling->getEmail() }}</p>
               <p>
-                <i class="fi-foot"></i> {{ $sbling->getDob() }} | <i class="fi-skull"></i> {{ $sbling->getDod() }}
+                <i class="fi-foot"></i> {{ $sibling->getDob() }} | <i class="fi-skull"></i> {{ $sibling->getDod() }}
               </p>
             </div>
           </div>
         </div>
       @endforeach
-      <!-- End Sbling item -->
+      <!-- End Sibling item -->
     </div>
   </div>
   <!-- End Children tab content -->
@@ -130,9 +134,11 @@
         <div class="cell medium-3">
           <div class="card">
             <div class="card-divider">
-              <a href="#">{{ $wife->name }}</a>
+              <a href="{{ route('users.show', ['user' => $wife->hashid]) }}">{{ $wife->name }}</a>
             </div>
-            <img src="{{ $wife->getAvatar() }}" alt="{{ $wife->name }}">
+            <a href="{{ route('users.show', ['user' => $wife->hashid]) }}">
+              <img src="{{ $wife->getAvatar() }}" alt="{{ $wife->name }}">
+            </a>
             <div class="card-section">
               <p><i class="fi-telephone"></i> {{ $wife->getPhone() }}</p>
               <p><i class="fi-mail"></i> {{ $wife->getEmail() }}</p>
@@ -171,9 +177,11 @@
           <div class="cell medium-3">
             <div class="card">
               <div class="card-divider">
-                <a href="#">{{ $child->name }}</a>
+                <a href="{{ route('users.show', ['user' => $child->hashid]) }}">{{ $child->name }}</a>
               </div>
-              <img src="{{ $child->getAvatar() }}" alt="{{ $child->name }}">
+              <a href="{{ route('users.show', ['user' => $child->hashid]) }}">
+                <img src="{{ $child->getAvatar() }}" alt="{{ $child->name }}">
+              </a>
               <div class="card-section">
                 <p><i class="fi-telephone"></i> {{ $child->getPhone() }}</p>
                 <p><i class="fi-mail"></i> {{ $child->getEmail() }}</p>
