@@ -6,7 +6,6 @@ php:
 before_script:
   - composer self-update
   - composer update -o
-  - mkdir storage
   - php artisan migrate
 
 script:
