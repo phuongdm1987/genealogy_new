@@ -10,7 +10,7 @@ before_script:
   - composer self-update
   - composer update -o
   - chmod -R 777 storage
-  - chmod -R 777 bootstrap
+  - chmod -R 777 bootstrap/cache
   - php artisan migrate --env=testing
 
 script:
