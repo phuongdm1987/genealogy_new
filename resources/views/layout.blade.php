@@ -7,11 +7,24 @@
 
     <title>Genealogy</title>
 
+    <link rel="stylesheet" href="{{ asset('fonts/vendor/foundation-icons/foundation-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cropper.min.css') }}">
     @yield('css')
   </head>
   <body>
     @include('navbar')
+
+    @foreach (['alert', 'warning', 'success', 'info'] as $msg)
+      @if(Session::has('alert-' . $msg))
+        <div class="callout {{ $msg }} small" data-closable="slide-out-right">
+          <h5>{{ Session::get('alert-' . $msg) }}</h5>
+          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      @endif
+    @endforeach
 
     <!-- Main content -->
     <div class="grid-container full">
@@ -30,9 +43,7 @@
             @yield('content')
           </div>
         @else
-          <div class="cell medium-4 medium-offset-4">
-            @yield('content')
-          </div>
+          @yield('content')
         @endif
         <!-- End Content -->
 
@@ -44,7 +55,7 @@
     <div id="footer" class="grid-container full margin-top-3 padding-left-1 padding-right-1 clearfix">
       <p class="float-left">
         <small>
-          Copyright &copy 2017-<span id="year-now"></span> by <a href="https://www.facebook.com/phuongdm87">Henry Duong</a>. All rights reserved.
+          Copyright &copy; 2017-<span id="year-now"></span> by <a href="https://www.facebook.com/phuongdm87">Henry Duong</a>. All rights reserved.
         </small>
       </p>
       <p class="float-right"><small><b>Version</b> 1.0.0</small></p>

@@ -1,8 +1,10 @@
 @extends('layout', ['sidebar' => false])
 
 @section('content')
-<fieldset class="fieldset">
-  <legend>Verification</legend>
-  You have successfully registered. An email is sent to you for verification.
-</fieldset>
+<div class="cell medium-4 medium-offset-4">
+    <fieldset class="fieldset">
+      <legend>Xác minh tài khoản</legend>
+      Bạn đã đăng ký thành công. Một email được gửi tới bạn để xác minh.
+    </fieldset>
+</div>
 @endsection

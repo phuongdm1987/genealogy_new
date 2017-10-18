@@ -10,13 +10,20 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('home');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/verify-email/{confirmation_code}', 'Auth\RegisterController@verify')->name('verify');
+
+Route::resource('parents', 'ParentController');
+Route::resource('siblings', 'SiblingController');
+Route::resource('marriages', 'MarriageController');
+Route::resource('children', 'ChildController');
+Route::resource('users', 'UserController');
+
+Route::get('account', 'AccountController@index')->name('profile.index');
+Route::post('account', 'AccountController@update')->name('profile.update');
+Route::post('account/change-password', 'AccountController@changePassword')->name('profile.change.password');
+
+Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

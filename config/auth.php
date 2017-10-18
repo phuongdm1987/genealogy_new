@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Genealogy\User::class,
+            'model' => Genealogy\Hocs\Users\User::class,
         ],
 
         // 'users' => [

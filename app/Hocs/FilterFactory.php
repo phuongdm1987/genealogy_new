@@ -27,7 +27,7 @@ class FilterFactory
 
         $className = get_class($model);
         $reflection = new \ReflectionClass($className);
-        return 'Goship\\Filters\\' . str_plural($reflection->getShortName()) . '\\' . studly_case($name);
+        return 'Genealogy\\Filters\\' . str_plural($reflection->getShortName()) . '\\' . studly_case($name);
     }
     private static function isValidDecorator($decorator)
     {

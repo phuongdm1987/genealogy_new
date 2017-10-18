@@ -2,6 +2,7 @@
 
 namespace Genealogy\Http\Controllers;
 
+use Genealogy\Hocs\Users\UserRepository;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,8 +12,9 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $user)
     {
+        $this->user = $user;
         $this->middleware('auth');
     }
 
@@ -21,8 +23,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $user = auth()->user();
+        $user->load('parent.couple', 'couple.children', 'children');
+
+        $users_tree = $this->user->getToTree();
+
+        return view('home')->with(['user' => $user, 'users_tree' => $users_tree]);
     }
 }
