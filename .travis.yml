@@ -6,7 +6,9 @@ php:
 before_script:
   - composer self-update
   - composer update -o
-  - php artisan migrate
+  - chmod -R 777 storage
+  - chmod -R 777 bootstrap
+  - php artisan migrate --env=testing
 
 script:
-  - ./vendor/bin/phpunit --env=testing
+  - ./vendor/bin/phpunit
