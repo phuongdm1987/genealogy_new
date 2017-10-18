@@ -22,4 +22,8 @@ Route::resource('marriages', 'MarriageController');
 Route::resource('children', 'ChildController');
 Route::resource('users', 'UserController');
 
+Route::get('account', 'AccountController@index')->name('profile.index');
+Route::post('account', 'AccountController@update')->name('profile.update');
+Route::post('account/change-password', 'AccountController@changePassword')->name('profile.change.password');
+
 Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

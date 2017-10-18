@@ -27,6 +27,12 @@
         <p class="help-text">{{ $errors->first('name') }}</p>
       @endif
 
+
+      <div>
+        <input type="radio" name="sex" value="1" id="sexRed" {{ old('sex') == 1 ? "checked" : "" }} required><label for="sexRed">Nam</label>
+        <input type="radio" name="sex" value="0" id="sexBlue" {{ old('sex') == 0 ? "checked" : "" }}><label for="sexBlue">Nữ</label>
+      </div>
+
       <label>Email
         <input id="email" name="email" type="email" value="{{ old('email') }}" required>
       </label>

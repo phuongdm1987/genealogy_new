@@ -30,8 +30,8 @@
       @endif
 
       <div>
-        <input type="radio" name="sex" value="1" id="sexRed" required><label for="sexRed">Nam</label>
-        <input type="radio" name="sex" value="0" id="sexBlue"><label for="sexBlue">Nữ</label>
+        <input type="radio" name="sex" value="1" id="sexRed" {{ old('sex') == 1 ? "checked" : "" }} required><label for="sexRed">Nam</label>
+        <input type="radio" name="sex" value="0" id="sexBlue" {{ old('sex') == 0 ? "checked" : "" }}><label for="sexBlue">Nữ</label>
       </div>
 
       <label>Email

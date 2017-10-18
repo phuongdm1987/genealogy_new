@@ -8,3 +8,12 @@
 .size-48 { font-size: 48px; }
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
+
+.relative {
+    position: relative;
+}
+.av-dead {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
