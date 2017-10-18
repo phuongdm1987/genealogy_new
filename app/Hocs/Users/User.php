@@ -24,7 +24,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'avatar', 'name', 'phone', 'email', 'sex', 'password', 'confirmation_code',
-        'dob', 'dod', 'parent_id'
+        'dob', 'dod', 'parent_id', 'phone_visibile', 'email_visibile'
     ];
 
     protected static $arr_sex = [
@@ -82,6 +82,10 @@ class User extends Authenticatable
      */
     public function getPhone()
     {
+        if (!$this->phone_visibile) {
+            return 'riêng tư';
+        }
+
         return $this->phone ? $this->phone : 'N/a';
     }
 
@@ -91,6 +95,10 @@ class User extends Authenticatable
      */
     public function getEmail()
     {
+        if (!$this->email_visibile) {
+            return 'Riêng tư';
+        }
+
         return $this->email ? $this->email : 'N/a';
     }
 

@@ -23,7 +23,7 @@
 
       <input id="remember" name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }}><label for="remember">Nhớ tôi</label>
 
-      <button type="submit" class="button primary expanded">Sign In</button>
+      <button type="submit" class="button primary expanded">Đăng nhập</button>
 
       <div class="text-right">
         <a href="{{ route('password.request') }}">

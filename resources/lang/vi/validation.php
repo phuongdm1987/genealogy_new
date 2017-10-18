@@ -63,6 +63,7 @@ return [
     ],
     'not_in'               => 'Giá trị đã chọn trong trường :attribute không hợp lệ.',
     'numeric'              => 'Trường :attribute phải là một số.',
+    'phone_number'         => 'Trường :attribute phải là một số điện thoại.',
     'present'              => 'Trường :attribute phải được cung cấp.',
     'regex'                => 'Định dạng trường :attribute không hợp lệ.',
     'required'             => 'Trường :attribute không được bỏ trống.',

@@ -130,6 +130,40 @@ class DbUserRepository extends BaseRepository implements UserRepository
     }
 
     /**
+     * Xóa 1 bản ghi. Nếu model xác định 1 SoftDeletes
+     * thì method này chỉ đưa bản ghi vào trash. Dùng method destroy
+     * để xóa hoàn toàn bản ghi.
+     *
+     * @param  object $model Bản ghi hien tai
+     * @return bool|null
+     */
+    public function delete($model)
+    {
+        $model->marriages->delete();
+        return $model->delete();
+    }
+
+    /**
+     * Cập nhật thông tin 1 bản ghi theo ID
+     *
+     * @param  object $model Bản ghi hien tai
+     * @return bool
+     */
+    public function update($model, $data)
+    {
+        $model->fill($data)->save();
+
+        $avatar = array_get($data, 'avatar', null);
+        $width  = array_get($data, 'avatar_width', 0);
+        $height = array_get($data, 'avatar_height', 0);
+        $x      = array_get($data, 'avatar_x', 0);
+        $y      = array_get($data, 'avatar_y', 0);
+        $this->uploadAvatar($avatar, $width, $height, $x, $y, $model);
+
+        return $this->getById($model->id, 'withoutScope');
+    }
+
+    /**
      * Tai anh dai dien
      * @param  FileUpload $file File anh tai len
      * @param  User $user Doi tuong user

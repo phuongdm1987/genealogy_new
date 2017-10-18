@@ -4,8 +4,11 @@
 <!-- Feature post -->
 <div class="media-object">
   <div class="media-object-section">
-    <div class="thumbnail">
+    <div class="thumbnail relative">
       <img src= "{{ $user->getAvatar() }}" alt="{{ $user->name }}">
+      @if($user->isDead())
+        <i class="fi-bookmark size-72 av-dead"></i>
+      @endif
     </div>
   </div>
   <div class="media-object-section main-section">
@@ -49,11 +52,18 @@
           <div class="cell medium-3">
             <div class="card">
               <div class="card-divider">
-                <a href="{{ route('users.show', ['user' => $parent->hashid]) }}">{{ $parent->name }}</a>
+                <a href="{{ route('users.show', ['user' => $parent->hashid]) }}">
+                  {{ $parent->name }} <i class="{{ $parent->getSexIcon() }}"></i>
+                </a>
               </div>
-              <a href="{{ route('users.show', ['user' => $parent->hashid]) }}">
-                <img src="{{ $parent->getAvatar() }}" alt="{{ $parent->name }}">
-              </a>
+              <div class="thumbnail relative">
+                <a href="{{ route('users.show', ['user' => $parent->hashid]) }}">
+                  <img src="{{ $parent->getAvatar() }}" alt="{{ $parent->name }}">
+                </a>
+                @if($parent->isDead())
+                  <i class="fi-bookmark size-72 av-dead"></i>
+                @endif
+              </div>
               <div class="card-section">
                 <p><i class="fi-telephone"></i> {{ $parent->getPhone() }}</p>
                 <p><i class="fi-mail"></i> {{ $parent->getEmail() }}</p>
@@ -92,11 +102,18 @@
         <div class="cell medium-3">
           <div class="card">
             <div class="card-divider">
-              <a href="{{ route('users.show', ['user' => $sibling->hashid]) }}">{{ $sibling->name }}</a>
+              <a href="{{ route('users.show', ['user' => $sibling->hashid]) }}">
+                {{ $sibling->name }} <i class="{{ $sibling->getSexIcon() }}"></i>
+              </a>
             </div>
-            <a href="{{ route('users.show', ['user' => $sibling->hashid]) }}">
-              <img src="{{ $sibling->getAvatar() }}" alt="{{ $sibling->name }}">
-            </a>
+            <div class="thumbnail relative">
+              <a href="{{ route('users.show', ['user' => $sibling->hashid]) }}">
+                <img src="{{ $sibling->getAvatar() }}" alt="{{ $sibling->name }}">
+              </a>
+              @if($sibling->isDead())
+                <i class="fi-bookmark size-72 av-dead"></i>
+              @endif
+            </div>
             <div class="card-section">
               <p><i class="fi-telephone"></i> {{ $sibling->getPhone() }}</p>
               <p><i class="fi-mail"></i> {{ $sibling->getEmail() }}</p>
@@ -134,11 +151,18 @@
         <div class="cell medium-3">
           <div class="card">
             <div class="card-divider">
-              <a href="{{ route('users.show', ['user' => $wife->hashid]) }}">{{ $wife->name }}</a>
+              <a href="{{ route('users.show', ['user' => $wife->hashid]) }}">
+                {{ $wife->name }} <i class="{{ $wife->getSexIcon() }}"></i>
+              </a>
             </div>
-            <a href="{{ route('users.show', ['user' => $wife->hashid]) }}">
-              <img src="{{ $wife->getAvatar() }}" alt="{{ $wife->name }}">
-            </a>
+            <div class="thumbnail relative">
+              <a href="{{ route('users.show', ['user' => $wife->hashid]) }}">
+                <img src="{{ $wife->getAvatar() }}" alt="{{ $wife->name }}">
+              </a>
+              @if($wife->isDead())
+                <i class="fi-bookmark size-72 av-dead"></i>
+              @endif
+            </div>
             <div class="card-section">
               <p><i class="fi-telephone"></i> {{ $wife->getPhone() }}</p>
               <p><i class="fi-mail"></i> {{ $wife->getEmail() }}</p>
@@ -177,11 +201,18 @@
           <div class="cell medium-3">
             <div class="card">
               <div class="card-divider">
-                <a href="{{ route('users.show', ['user' => $child->hashid]) }}">{{ $child->name }}</a>
+                <a href="{{ route('users.show', ['user' => $child->hashid]) }}">
+                  {{ $child->name }} <i class="{{ $child->getSexIcon() }}"></i>
+                </a>
               </div>
-              <a href="{{ route('users.show', ['user' => $child->hashid]) }}">
-                <img src="{{ $child->getAvatar() }}" alt="{{ $child->name }}">
-              </a>
+              <div class="thumbnail relative">
+                <a href="{{ route('users.show', ['user' => $child->hashid]) }}">
+                  <img src="{{ $child->getAvatar() }}" alt="{{ $child->name }}">
+                </a>
+                @if($child->isDead())
+                  <i class="fi-bookmark size-72 av-dead"></i>
+                @endif
+              </div>
               <div class="card-section">
                 <p><i class="fi-telephone"></i> {{ $child->getPhone() }}</p>
                 <p><i class="fi-mail"></i> {{ $child->getEmail() }}</p>
