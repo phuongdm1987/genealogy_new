@@ -2,6 +2,6 @@
 
 [![Build Status](https://travis-ci.org/phuongdm1987/genealogy_new.svg?branch=dev)](https://travis-ci.org/phuongdm1987/genealogy_new)
 
-[![Code Coverage](https://codecov.io/github/phuongdm1987/genealogy_new?branch=dev)](https://codecov.io/github/phuongdm1987/genealogy_new?branch=dev)
+[![codecov](https://codecov.io/gh/phuongdm1987/genealogy_new/branch/dev/graph/badge.svg)](https://codecov.io/gh/phuongdm1987/genealogy_new)
 
 ## Gioi thieu ve Genealogy - He thong gia pha
