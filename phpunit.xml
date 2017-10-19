@@ -28,4 +28,7 @@
         <env name="SESSION_DRIVER" value="redis"/>
         <env name="QUEUE_DRIVER" value="redis"/>
     </php>
+    <logging>
+        <log type="coverage-clover" target="clover.xml"></log>
+    </logging>
 </phpunit>
