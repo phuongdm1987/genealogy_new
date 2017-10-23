@@ -46,7 +46,7 @@ class User extends Authenticatable
      */
     public function setSexAttribute($value)
     {
-        $this->attributes['sex'] = (boolean) $value;
+        $this->attributes['sex'] = (int) $value;
     }
 
     /**

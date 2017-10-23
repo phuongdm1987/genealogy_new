@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \Genealogy\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Genealogy\Http\Middleware\TrustProxies::class,
+        \RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace::class,
     ];
 
     /**

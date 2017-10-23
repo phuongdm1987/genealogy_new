@@ -54,7 +54,6 @@ class DbUserRepository extends BaseRepository implements UserRepository
     {
         $user_current = auth()->user();
         $data['sex'] = $user_current->isMan() ? false : true;
-        // $data['parent_id'] = $user_current->parent_id;
 
         return $this->store($data);
     }
@@ -139,7 +138,7 @@ class DbUserRepository extends BaseRepository implements UserRepository
      */
     public function delete($model)
     {
-        $model->marriages->delete();
+        $model->marriages()->delete();
         return $model->delete();
     }
 
@@ -151,6 +150,10 @@ class DbUserRepository extends BaseRepository implements UserRepository
      */
     public function update($model, $data)
     {
+        $data = array_only($data, [
+            'name', 'phone', 'dob', 'avatar', 'avatar_width', 'avatar_height',
+            'avatar_x', 'avatar_y'
+        ]);
         $model->fill($data)->save();
 
         $avatar = array_get($data, 'avatar', null);
