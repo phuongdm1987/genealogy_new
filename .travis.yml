@@ -10,6 +10,8 @@ before_script:
   - cp .env.testing .env
   - composer self-update
   - composer update -o
+  - php artisan storage:link
+  - mkdir storage/app/public/uploads
   - chmod -R 777 storage
   - chmod -R 777 bootstrap/cache
   - php artisan migrate --env=testing
