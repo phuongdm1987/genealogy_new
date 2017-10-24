@@ -9,7 +9,7 @@ services:
 before_script:
   - cp .env.testing .env
   - composer self-update
-  - composer install --no-dev
+  - composer update -o
   - chmod -R 777 storage
   - chmod -R 777 bootstrap/cache
   - php artisan migrate --env=testing
