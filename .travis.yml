@@ -8,7 +8,7 @@ services:
 
 before_script:
   - composer self-update
-  - composer update -o --no-dev
+  - composer install --no-dev
   - chmod -R 777 storage
   - chmod -R 777 bootstrap/cache
   - php artisan migrate --env=testing
