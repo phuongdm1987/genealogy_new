@@ -141,4 +141,14 @@ class UserRepositoryTest extends TestCase
         $this->userRepository->uploadAvatar($file, 300, 300, 0, 0);
         $this->assertFalse(is_null($this->user->avatar));
     }
+
+    public function testGetByParam()
+    {
+        $params = [
+            'q' => $this->user->phone
+        ];
+        $user = $this->userRepository->getByParam($params, 1);
+
+        $this->assertEquals($user->phone, $this->user->phone);
+    }
 }
