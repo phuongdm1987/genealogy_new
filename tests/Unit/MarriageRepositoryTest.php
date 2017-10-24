@@ -10,11 +10,27 @@ class MarriageRepositoryTest extends TestCase
     use RefreshDatabase;
 
     private $marriageRepository;
+    private $marriage;
+    private $husband;
+    private $wife;
 
     public function setUp()
     {
         parent::setup();
         $this->marriageRepository = app()->make(\Genealogy\Hocs\Marriages\MarriageRepository::class);
+
+        $this->husband = factory(\Genealogy\Hocs\Users\User::class)->create([
+            'sex' => 1
+        ]);
+
+        $this->wife = factory(\Genealogy\Hocs\Users\User::class)->create([
+            'sex' => 0
+        ]);
+
+        $this->marriage = factory(\Genealogy\Hocs\Marriages\Marriage::class)->create([
+            'husband_id' => $this->husband->id,
+            'wife_id'    => $this->wife->id,
+        ]);
     }
 
     /**
@@ -50,9 +66,19 @@ class MarriageRepositoryTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $wife = $this->marriageRepository->store($data);
+        $result = $this->marriageRepository->store($data);
 
-        $this->assertDatabaseHas('marriages', ['husband_id' => $user->id, 'wife_id' => $wife->id]);
-        $this->assertDatabaseHas('users', ['id' => $wife->id, 'sex' => 0]);
+        $this->assertDatabaseHas('marriages', ['husband_id' => $user->id, 'wife_id' => $result['user']->id]);
+        $this->assertDatabaseHas('users', ['id' => $result['user']->id, 'sex' => 0]);
+    }
+
+    public function testGetHusband()
+    {
+        $this->assertEquals($this->husband->email, $this->marriage->husband->email);
+    }
+
+    public function testGetWife()
+    {
+        $this->assertEquals($this->wife->email, $this->marriage->wife->email);
     }
 }

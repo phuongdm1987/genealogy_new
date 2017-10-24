@@ -42,10 +42,10 @@ class MarriageController extends Controller
             $datas = $request->all();
             $datas['user']['password'] = $password;
 
-            $user = $this->marriage->store($datas);
+            $result = $this->marriage->store($datas);
             DB::commit();
 
-            dispatch(new SendInviteEmail($user, $password));
+            dispatch(new SendInviteEmail($result['user'], $password));
 
             return redirect(route('home'))->with('alert-success', 'Thêm mới thành công!');
         } catch (\Exception $e) {
