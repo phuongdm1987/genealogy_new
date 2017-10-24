@@ -7,6 +7,7 @@ services:
   - redis-server
 
 before_script:
+  - cp .env.testing .env
   - composer self-update
   - composer install --no-dev
   - chmod -R 777 storage
