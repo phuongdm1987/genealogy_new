@@ -23,7 +23,7 @@
       @endguest
       @auth
         <li>
-          <a href="#">{{ $user->name }}</a>
+          <a href="#">{{ auth()->user()->name }}</a>
           <ul class="menu vertical">
             <li><a href="{{ route('profile.index') }}">Cập nhật hồ sơ</a></li>
             <li><a href="{{ route('profile.change.password') }}">Cập nhật mật khẩu</a></li>

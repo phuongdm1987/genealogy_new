@@ -7,11 +7,18 @@ services:
   - redis-server
 
 before_script:
+  - cp .env.testing .env
   - composer self-update
   - composer update -o
+  - php artisan storage:link
+  - mkdir storage/app/public/uploads
+  - mkdir storage/app/public/uploads/avatars
   - chmod -R 777 storage
-  - chmod -R 777 bootstrap
+  - chmod -R 777 bootstrap/cache
   - php artisan migrate --env=testing
 
 script:
-  - ./vendor/bin/phpunit
+  - ./vendor/bin/phpunit --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t @.cc_token

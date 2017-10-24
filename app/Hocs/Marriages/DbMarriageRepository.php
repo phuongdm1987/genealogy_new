@@ -36,6 +36,6 @@ class DbMarriageRepository extends BaseRepository implements MarriageRepository
         $model->wife_id    = !$user_current->isMan() ? $user_current->id : $user->id;
         $model->save();
 
-        return $user;
+        return ['model' => $model, 'user' => $user];
     }
 }
