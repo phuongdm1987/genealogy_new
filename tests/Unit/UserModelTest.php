@@ -32,14 +32,19 @@ class UserModelTest extends TestCase
      *
      * @return void
      */
-    public function testGetSex()
-    {
-        $this->assertEquals('Nữ', $this->user->getSex());
-    }
-
     public function testIsMan()
     {
         $this->assertFalse($this->user->isMan());
+    }
+
+    public function testIsDead()
+    {
+        $this->assertFalse($this->user->isDead());
+    }
+
+    public function testGetSex()
+    {
+        $this->assertEquals('Nữ', $this->user->getSex());
     }
 
     public function testGetSexIcon()
@@ -47,7 +52,7 @@ class UserModelTest extends TestCase
         $this->assertEquals('fi-female-symbol', $this->user->getSexIcon());
     }
 
-    public function getPhoneEmpty()
+    public function testGetPhoneEmpty()
     {
         $this->user->phone = '';
         $this->user->save();
@@ -55,33 +60,59 @@ class UserModelTest extends TestCase
         $this->assertEquals('N/a', $this->user->getPhone());
     }
 
-    public function getPhone()
+    public function testGetPhone()
     {
         $this->assertEquals('0972738921', $this->user->getPhone());
     }
 
-    public function getEmail()
+    public function testGetEmail()
     {
         $this->assertEquals('Riêng tư', $this->user->getEmail());
     }
 
-    public function getDob()
+    public function testGetDob()
     {
-        $this->assertEquals('2017-12-27 00:00:00', $this->user->getDob());
+        $this->assertEquals('27-12-1987 00:00:00', $this->user->getDob());
     }
 
-    public function getDobWithFormat()
+    public function testGetDobWithFormat()
     {
-        $this->assertEquals('2017-12-27', $this->user->getDob('Y-m-d'));
+        $this->assertEquals('1987-12-27', $this->user->getDob('Y-m-d'));
     }
 
-    public function getDod()
+    public function testGetDod()
     {
         $this->assertEquals('N/a', $this->user->getDod());
     }
 
-    public function isDead()
+    public function testGetAvatarEmpty()
     {
-        $this->assertFalse($this->user->isDead());
+        $this->assertEquals('http://via.placeholder.com/150x150', $this->user->getAvatar());
+    }
+
+    public function testGetAvatar()
+    {
+        $this->user->avatar = 'avatar.jpg';
+        $this->user->save();
+        $this->assertEquals('http://genealogy.dev/storage/uploads/avatars/avatar.jpg', $this->user->getAvatar());
+    }
+
+    public function testGetParents()
+    {
+        $parent = factory(\Genealogy\Hocs\Users\User::class)->create([
+            'sex' => 1
+        ]);
+        $wife_of_parent = factory(\Genealogy\Hocs\Users\User::class)->create([
+            'sex' => 0
+        ]);
+        $marriage = factory(\Genealogy\Hocs\Marriages\Marriage::class)->create([
+            'husband_id' => $parent->id,
+            'wife_id' => $wife_of_parent->id,
+        ]);
+
+        $this->user->parent_id = $parent->id;
+        $this->user->save();
+        $parents = $this->user->getParents()->toArray();
+        $this->assertCount(2, $parents);
     }
 }
