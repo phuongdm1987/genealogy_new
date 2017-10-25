@@ -27,6 +27,7 @@ class StoreMarriage extends FormRequest
             'marriage.started_at' => 'required|date_format:Y-m-d',
             'marriage.is_end'     => 'nullable|boolean',
             'marriage.ended_at'   => 'nullable|date_format:Y-m-d',
+            'user.current_id'     => 'required|exists:users,id',
             'user.avatar'         => 'nullable|image|mimes:jpeg,jpg,png',
             'user.name'           => 'required',
             'user.email'          => 'required|email|unique:users,email',

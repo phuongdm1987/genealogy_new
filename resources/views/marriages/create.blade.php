@@ -35,7 +35,7 @@
       <div class="cell medium-8">
         <fieldset class="fieldset">
           <legend>{{ $user->isMan() ? 'Vợ' : 'Chồng' }}</legend>
-
+          <input type="hidden" name="user[current_id]" value="{{ old('user.current', app('request')->input('current_id')) }}">
           <label for="">
             <img class="thumbnail" id="image" style="max-width: 100%;" src="http://via.placeholder.com/150x150" alt="Avatar">
           </label>

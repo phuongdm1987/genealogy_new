@@ -42,6 +42,12 @@ class MarriageRepositoryTest extends TestCase
     {
         \Storage::fake('avatar');
 
+        $user = factory(\Genealogy\Hocs\Users\User::class)->create([
+            'parent_id' => null,
+            'sex' => 1
+        ]);
+        $this->actingAs($user);
+
         $data = [
             'marriage' => [
                 'started_at' => '2013-01-20',
@@ -57,14 +63,9 @@ class MarriageRepositoryTest extends TestCase
                 'dob'           => '2017-10-30',
                 'is_dead'       => false,
                 'dod'           => null,
+                'current_id'    => $user->id,
             ],
         ];
-
-        $user = factory(\Genealogy\Hocs\Users\User::class)->create([
-            'parent_id' => null,
-            'sex' => 1
-        ]);
-        $this->actingAs($user);
 
         $result = $this->marriageRepository->store($data);
 

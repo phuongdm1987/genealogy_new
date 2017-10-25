@@ -22,27 +22,32 @@ class DbUserRepository extends BaseRepository implements UserRepository
 
     public function store($data)
     {
-        $is_dead = array_get($data, 'is_dead', false);
-        $dod = array_get($data, 'dod', null);
-        $data['dod'] = $is_dead ? $dod : null;
-
-        $data['password'] = bcrypt(array_get($data, 'password', null));
-        $data['confirmation_code'] = str_random(8) . "-" . base64_encode($data['email']);
-
+        $data = $this->parserDatas($data);
         $model = $this->model->create($data);
 
-        $model->hashid = \Hashids::encode($model->id);
-        $model->save();
+        $this->updateHashId($model);
 
-        $avatar = array_get($data, 'avatar', null);
-        $width  = array_get($data, 'avatar_width', 0);
-        $height = array_get($data, 'avatar_height', 0);
-        $x      = array_get($data, 'avatar_x', 0);
-        $y      = array_get($data, 'avatar_y', 0);
-
-        $this->uploadAvatar($avatar, $width, $height, $x, $y, $model);
+        $this->uploadAvatar($data, $model);
 
         return $this->getById($model->id);
+    }
+
+    public function parserDatas($datas)
+    {
+        $is_dead = array_get($datas, 'is_dead', false);
+        $dod = array_get($datas, 'dod', null);
+        $datas['dod'] = $is_dead ? $dod : null;
+
+        $datas['password'] = bcrypt(array_get($datas, 'password', null));
+        $datas['confirmation_code'] = str_random(8) . "-" . base64_encode($datas['email']);
+
+        return $datas;
+    }
+
+    public function updateHashId($model)
+    {
+        $model->hashid = \Hashids::encode($model->id);
+        $model->save();
     }
 
     /**
@@ -52,8 +57,11 @@ class DbUserRepository extends BaseRepository implements UserRepository
      */
     public function storeCouple($data)
     {
-        $user_current = auth()->user();
-        $data['sex'] = $user_current->isMan() ? false : true;
+        $current_id = array_get($data, 'current_id', null);
+        $current_user = $this->getById($current_id);
+
+        $data['parent_id'] = $current_user->parent_id;
+        $data['sex'] = $current_user->isMan() ? false : true;
 
         return $this->store($data);
     }
@@ -65,8 +73,6 @@ class DbUserRepository extends BaseRepository implements UserRepository
      */
     public function storeSibling($data)
     {
-        $user_current = auth()->user();
-        $data['parent_id'] = $user_current->parent_id;
         return $this->store($data);
     }
 
@@ -77,8 +83,6 @@ class DbUserRepository extends BaseRepository implements UserRepository
      */
     public function storeChild($data)
     {
-        $user_current = auth()->user();
-        $data['parent_id'] = $user_current->id;
         return $this->store($data);
     }
 
@@ -87,15 +91,17 @@ class DbUserRepository extends BaseRepository implements UserRepository
      * @param  User     $current_user   Doi tuong user hien tai
      * @return string                   Html menu danh sach user
      */
-    public function getToTree($current_user = null)
+    public function getToTree($current_user = null, $type = 'html')
     {
         if (!auth()->user()) {
             return null;
         }
 
+        $method_name = "getRecursive" . ucfirst($type);
+
         $nodes = $this->model->get()->toTree();
 
-        $this->getRecursive($nodes, $html, $current_user);
+        $this->{$method_name}($nodes, $html, $current_user);
 
         return $html;
     }
@@ -108,21 +114,35 @@ class DbUserRepository extends BaseRepository implements UserRepository
      * @param  User        $current_user    Doi tuong user hien tai
      * @return string                       Html
      */
-    public function getRecursive($users, &$html, $current_user = null)
+    public function getRecursiveHtml($users, &$html, $current_user = null)
     {
         $current_user = is_null($current_user) ? auth()->user() : $current_user;
 
         foreach ($users as $user) {
             $active = $current_user->id == $user->id ? " class='is-active'" : '';
             $html .= "<li{$active}><a href='"
-                . route('users.show', ['user' => $user->hashid])
-                . "'><i class='fi-list'></i> <span>{$user->name}</span></a>";
+                    . route('users.show', ['user' => $user->hashid])
+                    . "'><i class='fi-list'></i> <span>{$user->name}</span></a>";
 
             $html .= !$user->children->isEmpty() ? '<ul class="menu vertical nested">' : '';
-            $this->getRecursive($user->children, $html, $current_user);
+            $this->getRecursiveHtml($user->children, $html, $current_user);
             $html .= !$user->children->isEmpty() ? '</ul>' : '';
 
             $html .= '</li>';
+        }
+
+        return $html;
+    }
+
+    public function getRecursiveList($users, &$html, $current_user = null, $prefix = '-')
+    {
+        $current_user = is_null($current_user) ? auth()->user() : $current_user;
+
+        foreach ($users as $user) {
+            $selected = $current_user->id == $user->id ? "selected" : '';
+            $html .= "<option value='{$user->id}' {$selected}>{$prefix} {$user->name}</option>";
+
+            $this->getRecursiveList($user->children, $html, $current_user, $prefix . '-');
         }
 
         return $html;
@@ -152,16 +172,11 @@ class DbUserRepository extends BaseRepository implements UserRepository
     {
         $data = array_only($data, [
             'name', 'phone', 'dob', 'avatar', 'avatar_width', 'avatar_height',
-            'avatar_x', 'avatar_y'
+            'avatar_x', 'avatar_y', 'parent_id'
         ]);
         $model->fill($data)->save();
 
-        $avatar = array_get($data, 'avatar', null);
-        $width  = array_get($data, 'avatar_width', 0);
-        $height = array_get($data, 'avatar_height', 0);
-        $x      = array_get($data, 'avatar_x', 0);
-        $y      = array_get($data, 'avatar_y', 0);
-        $this->uploadAvatar($avatar, $width, $height, $x, $y, $model);
+        $this->uploadAvatar($data, $model);
 
         return $this->getById($model->id, 'withoutScope');
     }
@@ -172,9 +187,15 @@ class DbUserRepository extends BaseRepository implements UserRepository
      * @param  User $user Doi tuong user
      * @return User       Doi tuong user
      */
-    public function uploadAvatar($file, $width, $height, $x = null, $y = null, $user = null)
+    public function uploadAvatar($data, $user = null)
     {
-        if (!$file) {
+        $avatar = array_get($data, 'avatar', null);
+        $width  = array_get($data, 'avatar_width', 0);
+        $height = array_get($data, 'avatar_height', 0);
+        $x      = array_get($data, 'avatar_x', 0);
+        $y      = array_get($data, 'avatar_y', 0);
+
+        if (!$avatar) {
             return $user;
         }
 
@@ -183,12 +204,19 @@ class DbUserRepository extends BaseRepository implements UserRepository
         $x = $x ? (int) $x : null;
         $y = $y ? (int) $y : null;
 
-        $filename = time() . '.' . $file->getClientOriginalExtension();
-        \Image::make($file)
+        $filename = time() . '.' . $avatar->getClientOriginalExtension();
+        \Image::make($avatar)
             ->crop($width, $height, $x, $y)
             ->resize(300, 300)
             ->save(storage_path('app/public/uploads/avatars/' . $filename));
 
+        $this->updateAvatar($filename, $user);
+
+        return $filename;
+    }
+
+    public function updateAvatar($filename, $user)
+    {
         $user = is_null($user) ? auth()->user() : $user;
         $user->avatar = $filename;
         $user->save();

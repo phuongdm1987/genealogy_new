@@ -94,7 +94,9 @@ class UserRepositoryTest extends TestCase
     {
         $this->actingAs($this->user);
 
-        $user = $this->userRepository->storeCouple($this->data);
+        $data = array_merge(['current_id' => $this->user->id], $this->data);
+
+        $user = $this->userRepository->storeCouple($data);
         $this->assertEquals($user->sex, 1);
     }
 
@@ -102,7 +104,9 @@ class UserRepositoryTest extends TestCase
     {
         $this->actingAs($this->user);
 
-        $user = $this->userRepository->storeSibling($this->data);
+        $data = array_merge(['parent_id' => $this->user->parent_id], $this->data);
+
+        $user = $this->userRepository->storeSibling($data);
         $this->assertEquals($this->user->parent_id, $user->parent_id);
     }
 
@@ -110,7 +114,9 @@ class UserRepositoryTest extends TestCase
     {
         $this->actingAs($this->user);
 
-        $user = $this->userRepository->storeChild($this->data);
+        $data = array_merge(['parent_id' => $this->user->id], $this->data);
+
+        $user = $this->userRepository->storeChild($data);
         $this->assertEquals($this->user->id, $user->parent_id);
     }
 

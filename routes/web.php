@@ -16,7 +16,6 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/verify-email/{confirmation_code}', 'Auth\RegisterController@verify')->name('verify');
 
-Route::resource('parents', 'ParentController');
 Route::resource('siblings', 'SiblingController');
 Route::resource('marriages', 'MarriageController');
 Route::resource('children', 'ChildController');

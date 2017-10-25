@@ -12,12 +12,53 @@
     </div>
   </div>
   <div class="media-object-section main-section">
-    <h4>{{ $user->name }} <i class="{{ $user->getSexIcon() }}"></i></h4>
+    <h3>
+      {{ $user->name }}
+      <i class="{{ $user->getSexIcon() }}"></i>
+      <a href="{{ route('users.edit', ['user' => $user->hashid]) }}"><i class="fi-pencil"></i></a>
+    </h3>
     <p><i class="fi-telephone"></i> {{ $user->getPhone() }}</p>
     <p><i class="fi-mail"></i> {{ $user->getEmail() }}</p>
     <p><i class="fi-foot"></i> {{ $user->getDob('d-m-Y') }} | <i class="fi-skull"></i> {{ $user->getDod() }}</p>
   </div>
 </div>
+
+<div class="feature-box padding-bottom-1">
+  <h4 class="separator-left">Nghề nghiệp</h4>
+
+  <div class="box margin-bottom-1">
+    <h5 class="subheader">Cong ty Co phan dich vu va thuong mai Nguyen Ha</h5>
+    <div class="grid-x">
+      <div class="cell small-2">
+        Chuc danh <br>
+        Thoi gian
+      </div>
+      <div class="cell small-10">
+        Truong Phong <br>
+        Tu 2016 Den 2017
+      </div>
+    </div>
+    <div class="margin-top-1">Mo ta</div>
+    <div>pasdfsf sdfs fds fds f</div>
+  </div>
+
+  <div class="box margin-bottom-1">
+    <h5 class="subheader">Cong ty Co phan dich vu va thuong mai Nguyen Ha</h5>
+    <div class="grid-x">
+      <div class="cell small-2">
+        Chuc danh <br>
+        Thoi gian
+      </div>
+      <div class="cell small-10">
+        Truong Phong <br>
+        Tu 2016 Den 2017
+      </div>
+    </div>
+    <div class="margin-top-1">Mo ta</div>
+    <div>pasdfsf sdfs fds fds f</div>
+  </div>
+</div>
+
 <!-- End Feature post -->
 
 <!-- Relation post -->
@@ -32,20 +73,6 @@
   <!-- Parent tab content -->
   <div class="tabs-panel is-active" id="parents">
     <div class="grid-x grid-margin-x">
-      <!-- Parent item -->
-      <div class="cell medium-3">
-        <div class="card">
-          <div class="card-divider">
-            Bố / Mẹ
-          </div>
-          <div class="card-section">
-            <p><a href="{{ route('parents.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
-            <p><a href="{{ route('parents.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
-          </div>
-        </div>
-      </div>
-      <!-- End Parent item -->
-
       <!-- Parent item -->
       @if($user->getParents())
         @foreach($user->getParents() as $parent)
@@ -90,7 +117,7 @@
             Anh / Chị / Em
           </div>
           <div class="card-section">
-            <p><a href="{{ route('siblings.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
+            <p><a href="{{ route('siblings.create', ['parent_id' => $user->parent_id]) }}"><i class="fi-plus"></i> Thêm mới</a></p>
             <p><a href="{{ route('siblings.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
           </div>
         </div>
@@ -139,7 +166,7 @@
             Vợ / Chồng
           </div>
           <div class="card-section">
-            <p><a href="{{ route('marriages.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
+            <p><a href="{{ route('marriages.create', ['current_id' => $user->id]) }}"><i class="fi-plus"></i> Thêm mới</a></p>
             <p><a href="{{ route('marriages.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
           </div>
         </div>
@@ -188,7 +215,7 @@
             Con cái
           </div>
           <div class="card-section">
-            <p><a href="{{ route('children.create') }}"><i class="fi-plus"></i> Thêm mới</a></p>
+            <p><a href="{{ route('children.create', ['parent_id' => $user->id]) }}"><i class="fi-plus"></i> Thêm mới</a></p>
             <p><a href="{{ route('children.index') }}"><i class="fi-list-bullet"></i> Xem tất cả</a></p>
           </div>
         </div>

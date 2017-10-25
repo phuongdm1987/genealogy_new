@@ -26,4 +26,29 @@ class UserController extends Controller
 
         return view('home')->with(['user' => $user, 'users_tree' => $users_tree]);
     }
+
+    public function edit(Request $request, $id)
+    {
+        $id = array_first(\Hashids::decode($id));
+        $user = $this->user->getById($id);
+        return view('users.edit')->with(['user' => $user]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $id = array_first(\Hashids::decode($id));
+        $user = $this->user->getById($id);
+
+        \DB::beginTransaction();
+        try {
+            $this->user->update($user, $request->all());
+            \DB::commit();
+
+            return redirect(route('users.show', ['user' => $user->hashid]))
+                ->with('alert-success', 'Cập nhật thành công!');
+        } catch (\Exception $e) {
+            \DB::rollback();
+            return back()->with('alert-alert', 'Có lỗi xảy ra vui lòng thử lại!');
+        }
+    }
 }

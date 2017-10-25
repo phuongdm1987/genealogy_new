@@ -10,6 +10,7 @@ class Sorting
     {
         return static::applyDecoratorsFromRequest($sorters, $model->newQuery());
     }
+
     private static function applyDecoratorsFromRequest(array &$sorters, Builder $query)
     {
         if (count($sorters) == 1 && $sorters[0] == '') {
@@ -40,16 +41,19 @@ class Sorting
         }
         return $query;
     }
+
     private static function isValidSorter($sorterName, $value, $fields)
     {
         $arrDirection = static::getDirections();
 
         return in_array($sorterName, $fields) && isset($arrDirection[$value]);
     }
+
     private static function getDirections()
     {
         return [ASC => 'asc', DESC => 'desc'];
     }
+
     private static function getDirection($value)
     {
         $arrDirection = static::getDirections();

@@ -24,12 +24,13 @@ class StoreSibling extends FormRequest
     public function rules()
     {
         return [
-            'avatar' => 'nullable|image|mimes:jpeg,jpg,png',
-            'name'   => 'required',
-            'email'  => 'required|email|unique:users,email',
-            'sex'    => 'required|boolean',
-            'dob'    => 'nullable|date_format:Y-m-d',
-            'dod'    => 'nullable|date_format:Y-m-d',
+            'parent_id' => 'required|exists:users,id',
+            'avatar'    => 'nullable|image|mimes:jpeg,jpg,png',
+            'name'      => 'required',
+            'email'     => 'required|email|unique:users,email',
+            'sex'       => 'required|boolean',
+            'dob'       => 'nullable|date_format:Y-m-d',
+            'dod'       => 'nullable|date_format:Y-m-d',
         ];
     }
 }

@@ -5,6 +5,7 @@
   <h4>Thêm mới Anh / Chị / Em</h4>
   <form method="POST" action="{{ route('siblings.store') }}" enctype="multipart/form-data">
     {{ csrf_field() }}
+    <input type="hidden" name="parent_id" value="{{ old('parent_id', app('request')->input('parent_id')) }}">
     <fieldset class="fieldset">
       <legend>Anh / Chị / Em</legend>
 

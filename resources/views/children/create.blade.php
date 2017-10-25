@@ -5,6 +5,7 @@
   <h4>Thêm mới Con cái</h4>
   <form method="POST" action="{{ route('children.store') }}" enctype="multipart/form-data">
     {{ csrf_field() }}
+    <input type="hidden" name="parent_id" value="{{ old('parent_id', app('request')->input('parent_id')) }}">
     <fieldset class="fieldset">
       <legend>Con cái</legend>
       <label for="">
