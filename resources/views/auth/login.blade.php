@@ -7,14 +7,14 @@
     <form method="POST" action="{{ route('login') }}">
       {{ csrf_field() }}
 
-      <label>Địa chỉ email
+      <label>Địa chỉ email <i class="fi-asterisk"></i>
         <input id="email" name="email" type="email" value="{{ old('email') }}" required>
       </label>
       @if ($errors->has('email'))
         <p class="help-text">{{ $errors->first('email') }}</p>
       @endif
 
-      <label>Mật khẩu
+      <label>Mật khẩu <i class="fi-asterisk"></i>
         <input id="password" name="password" type="password" value="{{ old('password') }}" required>
       </label>
       @if ($errors->has('password'))

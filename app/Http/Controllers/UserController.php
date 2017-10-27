@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $id = array_first(\Hashids::decode($id));
         $user = $this->user->getById($id);
-        $users_tree = $this->user->getToTree($user);
+        $users_tree = $this->user->getToTree($id);
 
         return view('home')->with(['user' => $user, 'users_tree' => $users_tree]);
     }
@@ -31,10 +31,12 @@ class UserController extends Controller
     {
         $id = array_first(\Hashids::decode($id));
         $user = $this->user->getById($id);
-        return view('users.edit')->with(['user' => $user]);
+        $parents = $this->user->getToTree($user->parent_id, 'list');
+
+        return view('users.edit')->with(['user' => $user, 'parents' => $parents]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateUser $request, $id)
     {
         $id = array_first(\Hashids::decode($id));
         $user = $this->user->getById($id);

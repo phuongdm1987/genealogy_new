@@ -19,7 +19,7 @@ class MarriageController extends Controller
     public function __construct(MarriageRepository $marriage, UserRepository $user)
     {
         $this->marriage = $marriage;
-        $this->user     = $user;
+        $this->user = $user;
         $this->middleware('auth');
     }
 
@@ -30,7 +30,12 @@ class MarriageController extends Controller
      */
     public function create(Request $request)
     {
-        return view('marriages.create')->with('user', auth()->user());
+        $current_id = $request->get('current_id', 0);
+        if (!$user = $this->user->getById($current_id)) {
+            $user = auth()->user();
+        }
+
+        return view('marriages.create')->with('user', $user);
     }
 
     public function store(StoreMarriage $request)

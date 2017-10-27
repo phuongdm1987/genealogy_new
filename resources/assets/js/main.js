@@ -16,6 +16,15 @@ $(function(){
         }
     });
 
+    $('.disable-elm').change(function() {
+        let target = $(this).data('target');
+        if ($(this).is(":checked")) {
+            $(target).attr('disabled', true);
+        } else {
+            $(target).removeAttr('disabled');
+        }
+    });
+
     // document.getElementById("file").onchange = function () {
     //     var reader = new FileReader();
 

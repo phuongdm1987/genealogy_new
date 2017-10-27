@@ -22,6 +22,16 @@ class Marriage extends Model
         'husband_id', 'wife_id', 'started_at', 'eneded_at'
     ];
 
+    public function getStartedAt($format = 'd-m-Y H:i:s')
+    {
+        return $this->started_at ? $this->started_at->format($format) : 'N/a';
+    }
+
+    public function getEndedAt($format = 'd-m-Y H:i:s')
+    {
+        return $this->eneded_at ? $this->eneded_at->format($format) : 'N/a';
+    }
+
     /**
      * Tra ve doi tuong nguoi chong
      * @return [type] [description]

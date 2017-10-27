@@ -125,6 +125,8 @@ return [
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
+    'faker_locale' => 'vi_VN',
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -182,6 +184,7 @@ return [
          */
         Genealogy\Providers\UserServiceProvider::class,
         Genealogy\Providers\MarriageServiceProvider::class,
+        Genealogy\Providers\EmploymentServiceProvider::class,
 
     ],
 

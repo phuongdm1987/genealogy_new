@@ -28,7 +28,7 @@ class ChildController extends Controller
      */
     public function create(Request $request)
     {
-        return view('children.create')->with('user', auth()->user());
+        return view('children.create');
     }
 
     public function store(StoreChild $request)

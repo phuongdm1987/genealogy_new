@@ -20,6 +20,7 @@ Route::resource('siblings', 'SiblingController');
 Route::resource('marriages', 'MarriageController');
 Route::resource('children', 'ChildController');
 Route::resource('users', 'UserController');
+Route::resource('employments', 'EmploymentController');
 
 Route::get('account', 'AccountController@index')->name('profile.index');
 Route::post('account', 'AccountController@update')->name('profile.update');

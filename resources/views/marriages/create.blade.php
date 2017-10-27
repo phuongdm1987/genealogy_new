@@ -9,7 +9,7 @@
       <div class="cell medium-4">
         <fieldset class="fieldset">
           <legend>Hôn nhân</legend>
-          <label>Bắt đầu
+          <label>Bắt đầu <i class="fi-asterisk"></i>
             <input id="started_at" class="date-picker" name="marriage[started_at]" type="text" value="{{ old('marriage.started_at') }}" required>
           </label>
           @if ($errors->has('marriage.started_at'))
@@ -50,14 +50,14 @@
             <p class="help-text">{{ $errors->first('user.avatar') }}</p>
           @endif
 
-          <label>Họ và tên
+          <label>Họ và tên <i class="fi-asterisk"></i>
             <input id="name" name="user[name]" type="text" value="{{ old('user.name') }}" required>
           </label>
           @if ($errors->has('user.name'))
             <p class="help-text">{{ $errors->first('user.name') }}</p>
           @endif
 
-          <label>Email
+          <label>Email <i class="fi-asterisk"></i>
             <input id="email" name="user[email]" type="email" value="{{ old('user.email') }}" required>
           </label>
           @if ($errors->has('user.email'))

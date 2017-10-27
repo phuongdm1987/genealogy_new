@@ -20,8 +20,17 @@
         <p class="help-text">{{ $errors->first('avatar') }}</p>
       @endif
 
-      <label>Họ và Tên
-        <input id="name" name="name" type="text" value="{{ old('name', $user->name) }}" required autofocus>
+      <label>Cha mẹ
+        <select name="parent_id" id="parent_id" autofocus>
+          {!! $parents !!}
+        </select>
+      </label>
+      @if ($errors->has('parent_id'))
+        <p class="help-text">{{ $errors->first('parent_id') }}</p>
+      @endif
+
+      <label>Họ và Tên <i class="fi-asterisk"></i>
+        <input id="name" name="name" type="text" value="{{ old('name', $user->name) }}" required>
       </label>
       @if ($errors->has('name'))
         <p class="help-text">{{ $errors->first('name') }}</p>
@@ -32,7 +41,7 @@
       </label>
 
       <label>Điện thoại
-        <input id="phone" name="phone" type="tel" value="{{ old('phone', $user->phone) }}" required>
+        <input id="phone" name="phone" type="tel" value="{{ old('phone', $user->phone) }}">
       </label>
       @if ($errors->has('phone'))
         <p class="help-text">{{ $errors->first('phone') }}</p>

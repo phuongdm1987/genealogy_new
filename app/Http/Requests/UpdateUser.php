@@ -14,7 +14,7 @@ class UpdateProfile extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user();
+        return true;
     }
 
     /**
@@ -25,11 +25,11 @@ class UpdateProfile extends FormRequest
     public function rules()
     {
         return [
-            'parent_id' => 'nullable|exists:users,id|not_in:' . auth()->id(),
-            'avatar' => 'nullable|image|mimes:jpeg,jpg,png',
-            'phone'  => ['nullable', new PhoneNumber],
-            'name'   => 'required',
-            'dob'    => 'nullable|date_format:Y-m-d',
+            'parent_id' => 'nullable|exists:users,id|not_in:' . $this->get('current_id', -1),
+            'avatar'    => 'nullable|image|mimes:jpeg,jpg,png',
+            'phone'     => ['nullable', new PhoneNumber],
+            'name'      => 'required',
+            'dob'       => 'nullable|date_format:Y-m-d',
         ];
     }
 }
