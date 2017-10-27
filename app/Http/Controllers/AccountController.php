@@ -22,7 +22,9 @@ class AccountController extends Controller
 
     public function index(Request $request)
     {
-        return view('account.profile')->with(['user' => auth()->user()]);
+        $current_id = $request->get('parent_id', 0);
+        $parents = $this->user->getToTree($current_id, 'list');
+        return view('account.profile')->with(['user' => auth()->user(), 'parents' => $parents]);
     }
 
     public function update(UpdateProfile $request)

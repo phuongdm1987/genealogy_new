@@ -20,7 +20,7 @@
         <p class="help-text">{{ $errors->first('avatar') }}</p>
       @endif
 
-      <label>Họ và Tên
+      <label>Họ và Tên <i class="fi-asterisk"></i>
         <input id="name" name="name" type="text" value="{{ old('name') }}" required autofocus>
       </label>
       @if ($errors->has('name'))
@@ -33,21 +33,21 @@
         <input type="radio" name="sex" value="0" id="sexBlue" {{ old('sex') == 0 ? "checked" : "" }}><label for="sexBlue">Nữ</label>
       </div>
 
-      <label>Email
+      <label>Email <i class="fi-asterisk"></i>
         <input id="email" name="email" type="email" value="{{ old('email') }}" required>
       </label>
       @if ($errors->has('email'))
         <p class="help-text">{{ $errors->first('email') }}</p>
       @endif
 
-      <label>Mật khẩu
+      <label>Mật khẩu <i class="fi-asterisk"></i>
         <input id="password" name="password" type="password" value="{{ old('password') }}" required>
       </label>
       @if ($errors->has('password'))
         <p class="help-text">{{ $errors->first('password') }}</p>
       @endif
 
-      <label>Xác nhận mật khẩu
+      <label>Xác nhận mật khẩu <i class="fi-asterisk"></i>
         <input id="password-confirm" name="password_confirmation" type="password" value="{{ old('password_confirmation') }}" required>
       </label>
 

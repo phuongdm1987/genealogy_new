@@ -91,7 +91,7 @@ class DbUserRepository extends BaseRepository implements UserRepository
      * @param  User     $current_user   Doi tuong user hien tai
      * @return string                   Html menu danh sach user
      */
-    public function getToTree($current_user = null, $type = 'html')
+    public function getToTree($current_id = 0, $type = 'html')
     {
         if (!auth()->user()) {
             return null;
@@ -101,7 +101,7 @@ class DbUserRepository extends BaseRepository implements UserRepository
 
         $nodes = $this->model->get()->toTree();
 
-        $this->{$method_name}($nodes, $html, $current_user);
+        $this->{$method_name}($nodes, $html, $current_id);
 
         return $html;
     }
@@ -114,18 +114,16 @@ class DbUserRepository extends BaseRepository implements UserRepository
      * @param  User        $current_user    Doi tuong user hien tai
      * @return string                       Html
      */
-    public function getRecursiveHtml($users, &$html, $current_user = null)
+    public function getRecursiveHtml($users, &$html, $current_id = 0)
     {
-        $current_user = is_null($current_user) ? auth()->user() : $current_user;
-
         foreach ($users as $user) {
-            $active = $current_user->id == $user->id ? " class='is-active'" : '';
+            $active = $current_id == $user->id ? " class='is-active'" : '';
             $html .= "<li{$active}><a href='"
                     . route('users.show', ['user' => $user->hashid])
                     . "'><i class='fi-list'></i> <span>{$user->name}</span></a>";
 
             $html .= !$user->children->isEmpty() ? '<ul class="menu vertical nested">' : '';
-            $this->getRecursiveHtml($user->children, $html, $current_user);
+            $this->getRecursiveHtml($user->children, $html, $current_id);
             $html .= !$user->children->isEmpty() ? '</ul>' : '';
 
             $html .= '</li>';
@@ -134,15 +132,13 @@ class DbUserRepository extends BaseRepository implements UserRepository
         return $html;
     }
 
-    public function getRecursiveList($users, &$html, $current_user = null, $prefix = '-')
+    public function getRecursiveList($users, &$html, $current_id = 0, $prefix = '-')
     {
-        $current_user = is_null($current_user) ? auth()->user() : $current_user;
-
         foreach ($users as $user) {
-            $selected = $current_user->id == $user->id ? "selected" : '';
+            $selected = $current_id == $user->id ? "selected" : '';
             $html .= "<option value='{$user->id}' {$selected}>{$prefix} {$user->name}</option>";
 
-            $this->getRecursiveList($user->children, $html, $current_user, $prefix . '-');
+            $this->getRecursiveList($user->children, $html, $current_id, $prefix . '-');
         }
 
         return $html;

@@ -23,7 +23,7 @@
         <p class="help-text">{{ $errors->first('avatar') }}</p>
       @endif
 
-      <label>Họ và tên
+      <label>Họ và tên <i class="fi-asterisk"></i>
         <input id="name" name="name" type="text" value="{{ old('name') }}" required>
       </label>
       @if ($errors->has('name'))
@@ -35,7 +35,7 @@
         <input type="radio" name="sex" value="0" id="sexBlue" {{ old('sex') == 0 ? "checked" : "" }}><label for="sexBlue">Nữ</label>
       </div>
 
-      <label>Email
+      <label>Email <i class="fi-asterisk"></i>
         <input id="email" name="email" type="email" value="{{ old('email') }}" required>
       </label>
       @if ($errors->has('email'))

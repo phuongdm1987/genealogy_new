@@ -15,16 +15,7 @@
   <body>
     @include('navbar')
 
-    @foreach (['alert', 'warning', 'success', 'info'] as $msg)
-      @if(Session::has('alert-' . $msg))
-        <div class="callout {{ $msg }} small" data-closable="slide-out-right">
-          <h5>{{ Session::get('alert-' . $msg) }}</h5>
-          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      @endif
-    @endforeach
+    @include('alert')
 
     <!-- Main content -->
     <div class="grid-container full">
