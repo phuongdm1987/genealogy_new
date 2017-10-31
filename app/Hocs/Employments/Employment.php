@@ -38,15 +38,15 @@ class Employment extends Model
 
     public function getEndedAt($format = 'd-m-Y H:i:s', $type = 'show')
     {
-        if (!$this->eneded_at && $type == 'edit') {
-            return $this->eneded_at;
+        if (!$this->ended_at && $type == 'edit') {
+            return $this->ended_at;
         }
 
         if ($this->is_current) {
             return 'Công việc hiện tại';
         }
 
-        return $this->eneded_at ? $this->eneded_at->format($format) : 'N/a';
+        return $this->ended_at ? $this->ended_at->format($format) : 'N/a';
     }
 
     public function user()
