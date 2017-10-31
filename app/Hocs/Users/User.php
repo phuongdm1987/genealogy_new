@@ -204,6 +204,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Lay ra danh sach nghe nghiep
+     * @return [type] [description]
+     */
+    public function educations()
+    {
+        return $this->hasMany('Genealogy\Hocs\Educations\Education', 'user_id', 'id');
+    }
+
+    /**
      * Lay ra danh sach vo (chong)
      * @return Collection user
      */

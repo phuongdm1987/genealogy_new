@@ -185,6 +185,7 @@ return [
         Genealogy\Providers\UserServiceProvider::class,
         Genealogy\Providers\MarriageServiceProvider::class,
         Genealogy\Providers\EmploymentServiceProvider::class,
+        Genealogy\Providers\EducationServiceProvider::class,
 
     ],
 

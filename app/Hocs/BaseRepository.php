@@ -4,6 +4,8 @@ namespace Genealogy\Hocs;
 
 abstract class BaseRepository
 {
+    use Relationable, Paginable;
+
     /**
      * Eloquent model
      * @var Eloquent
@@ -36,21 +38,17 @@ abstract class BaseRepository
     /**
      * tim kiem thong tin tra ve danh sach ban ghi
      * @param  array        $params     mang tham so can tim kiem
-     * @param  integer      $size       so ban ghi tren 1 trang
      * @param  array        $sorting    mang key:value can sap xep
      * @return Collection               danh sach ban ghi
      */
-    public function getByParam($params, $size = 25, $getSql = false, $withoutScope = null)
+    public function getByParam($params, $getSql = false, $withoutScope = null)
     {
-        $with  = array_get($params, 'with', null);
         $sort  = array_get($params, 'sort', []);
 
         $query = \Genealogy\Hocs\FilterFactory::apply($params, $this->model);
         $query = \Genealogy\Hocs\Helpers\Sorting::apply($sort, $query);
 
-        if (!is_null($with)) {
-            $query->with($with);
-        }
+        $query->with($this->relations);
 
         if ($withoutScope == 'withoutScope') {
             $query->withoutGlobalScope('user');
@@ -60,7 +58,7 @@ abstract class BaseRepository
             return $query;
         }
 
-        switch ($size) {
+        switch ($this->size) {
             case -1:
             case 0:
                 return $query->get();
@@ -71,7 +69,7 @@ abstract class BaseRepository
                 break;
 
             default:
-                return $query->paginate($size);
+                return $query->paginate($this->size);
                 break;
         }
     }

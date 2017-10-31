@@ -21,6 +21,7 @@ class UserController extends Controller
     public function show(Request $request, $id)
     {
         $id = array_first(\Hashids::decode($id));
+        $this->user->setRelations('educations');
         $user = $this->user->getById($id);
         $users_tree = $this->user->getToTree($id);
 

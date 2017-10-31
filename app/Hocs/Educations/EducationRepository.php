@@ -1,8 +1,8 @@
 <?php
 
-namespace Genealogy\Hocs\Marriages;
+namespace Genealogy\Hocs\Educations;
 
-interface MarriageRepository
+interface EducationRepository
 {
     public function getById($id, $withoutScope = null);
     public function getByIdWithTrash($id);

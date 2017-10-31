@@ -21,3 +21,4 @@ public/css/app.css.map
 yarn.lock
 dump.rdb
 *.mwb
+_ide_helper.php

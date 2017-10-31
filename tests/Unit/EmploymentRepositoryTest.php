@@ -52,4 +52,10 @@ class EmploymentRepositoryTest extends TestCase
 
         $this->assertEquals('Công việc hiện tại', $employment->getEndedAt());
     }
+
+    public function testDelete()
+    {
+        $this->employmentRepo->delete($this->employment);
+        $this->assertDatabaseMissing('employments', ['id' => $this->employment->id]);
+    }
 }

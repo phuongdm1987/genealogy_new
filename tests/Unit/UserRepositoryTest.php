@@ -153,7 +153,8 @@ class UserRepositoryTest extends TestCase
         $params = [
             'q' => $this->user->phone
         ];
-        $user = $this->userRepository->getByParam($params, 1);
+        $this->userRepository->setPaginate(1);
+        $user = $this->userRepository->getByParam($params);
 
         $this->assertEquals($user->phone, $this->user->phone);
     }

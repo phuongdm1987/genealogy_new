@@ -6,7 +6,7 @@ interface EmploymentRepository
 {
     public function getById($id, $withoutScope = null);
     public function getByIdWithTrash($id);
-    public function getByParam($params, $size = 25, $getSql = false, $withoutScope = null);
+    public function getByParam($params, $getSql = false, $withoutScope = null);
     public function store($data);
     public function update($model, $data);
     public function delete($model);

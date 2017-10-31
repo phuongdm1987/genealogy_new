@@ -1,19 +1,19 @@
 <?php
 
-namespace Genealogy\Hocs\Employments;
+namespace Genealogy\Hocs\Educations;
 
 use Genealogy\Hocs\BaseRepository;
-use Genealogy\Hocs\Helpers\EmploymentHelper;
+use Genealogy\Hocs\Helpers\EducationHelper;
 
-class DbEmploymentRepository extends BaseRepository implements EmploymentRepository
+class DbEducationRepository extends BaseRepository implements EducationRepository
 {
     /**
      * Constructor
-     * @param Employment $employment
+     * @param Education $education
      */
-    public function __construct(Employment $employment, EmploymentHelper $helper)
+    public function __construct(Education $education, EducationHelper $helper)
     {
-        $this->model  = $employment;
+        $this->model  = $education;
         $this->helper = $helper;
     }
 

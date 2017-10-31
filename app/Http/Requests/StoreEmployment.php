@@ -26,7 +26,6 @@ class StoreEmployment extends FormRequest
         return [
             'current_id' => 'required|exists:users,id',
             'company'    => 'required',
-            'position'   => 'nullable',
             'is_current' => 'nullable|boolean',
             'started_at' => 'nullable|date_format:Y-m-d',
             'ended_at'   => 'nullable|date_format:Y-m-d',
