@@ -25,7 +25,7 @@ class ValidatePhoneTest extends TestCase
         $this->assertEquals('Trường phone phải là một số điện thoại.', $v->messages()->first('phone'));
     }
 
-    public function testPhoneSuccess()
+    public function testPhoneTenNumber()
     {
         $rules = [
             'phone' => [new \Genealogy\Rules\PhoneNumber]
@@ -33,6 +33,20 @@ class ValidatePhoneTest extends TestCase
 
         $data = [
             'phone' => '0972738921',
+        ];
+
+        $v = $this->app['validator']->make($data, $rules);
+        $this->assertTrue($v->passes());
+    }
+
+    public function testPhoneElevenNumber()
+    {
+        $rules = [
+            'phone' => [new \Genealogy\Rules\PhoneNumber]
+        ];
+
+        $data = [
+            'phone' => '01682738921',
         ];
 
         $v = $this->app['validator']->make($data, $rules);

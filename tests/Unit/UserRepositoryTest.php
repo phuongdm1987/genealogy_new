@@ -25,6 +25,7 @@ class UserRepositoryTest extends TestCase
             'sex'               => 0,
             'parent_id'         => $parent->id,
             'avatar'            => '',
+            'phone'             => '0972738921',
         ]);
 
         $this->data = [
